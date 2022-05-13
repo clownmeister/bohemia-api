@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: bohemia-api
+  description: bohemia-api
+  version: 1.0.0
+servers:
+  - url: 'https://api.bohemia.docker'
+paths:
+  /status:
+    get:
+      tags: [ Status ]
+      operationId: status
+      description: Get status
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  responses:
+    Status:
+      description: Service status
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    OK:
+      description: Template result
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusCode'
+    BadRequest:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusCode'
+              - $ref: '#/components/schemas/Errors'
+    NotFound:
+      description: NotFound
+    InternalServerError:
+      description: Internal Server Error
+    Conflict:
+      description: Confict
+
+  schemas:
+    Status:
+      properties:
+        mysql:
+          type: boolean
+          example: true
+    StatusCode:
+      required: [ status ]
+      properties:
+        status:
+          type: string
+          example: "RESPONSE_CONSTANT"
+    Errors:
+      required: [ errors ]
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+            example: 'error'

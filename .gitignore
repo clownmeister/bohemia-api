@@ -1,0 +1,13 @@
+.env
+.idea
+var
+vendor
+public/build/*
+node_modules
+
+#Symfony
+npm-debug.log
+yarn-error.log
+
+# JWT auth
+/config/jwt/*.pem
