@@ -3,7 +3,7 @@ NPM = docker exec -it -w /var/www bapi-npm bash -c
 
 default:
 	@echo "\e[102;30m******************************         Izi Start          ******************************\e[0m\n"
-	@make env up install
+	@make env up install build
 
 env:
 	@echo "\n\e[92mChecking for existing env file\e[0m"
@@ -34,6 +34,7 @@ install:
 	$(NPM) "yarn install"
 	$(PHP) "composer install"
 	make generate-keys
+	make migrate
 
 update:
 	@echo "\e[103;30m******************************         Update          ******************************\e[0m\n"

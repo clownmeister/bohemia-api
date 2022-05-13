@@ -3,11 +3,44 @@
 ## Requirements for local development
 
 1) Docker
+  * Should be fine on every OS but on Windows use only WSL2
 2) Make
+  * Should be easy to install on every unix OS including WSL
 
 ## Installation
 
-1)
+1) Type `make env` and configure your .env file accordingly. (you should only be missing some secrets)
+2) Set up your `hosts` file according to your `.env` file. (for example `api.bohemia.docker` -> `127.0.0.102`)
+3) Type `make`.
+4) Done.
+
+* Access **Backoffice** at <http://api.bohemia.docker/admin/>
+* Access **API** at <http://api.bohemia.docker/api/v1>
+* Access **PHPMyAdmin** at <http://api.bohemia.docker:81>
+* Access **Mailhog** at <http://api.bohemia.docker:82>
+* Access **Status** at <http://api.bohemia.docker/status>
+
+## Commands:
+
+Execute only in root of the project
+
+| Command            | Description                                                             |
+|--------------------|-------------------------------------------------------------------------|
+| `make`             | Easy start up. Starts docker, installs, builds.                         |
+| `make env`         | Copies .env file. In some cases fills out some things.                  |
+| `make up`          | Starts/Restarts containers.                                             |
+| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. |
+| `make udpate`      | Runs composer update.                                                   |
+| `make vendor`      | Clears vendor.                                                          |
+| `make cache-clear` | Clears symfony cache.                                                   |
+| `make build`       | Builds assets into build folder.                                        |
+| `make watch`       | Runs asset watcher.                                                     |
+| `make test`        | Runs all tests.                                                         |
+| `make phpcs`       | Runs PHP code sniffer.                                                  |
+| `make fix`         | Fixes all fixable code style issues from PHPCS.                         |
+| `make phpstan`     | Runs PHPStan.                                                           |
+| `make diff`        | Creates ORM migration.                                                  |
+| `make migrate`     | Migrates to latest migration.                                           |
 
 ## Design:
 

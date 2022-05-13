@@ -2,12 +2,10 @@
 .idea
 var
 vendor
-public/build
+public/build/*
 node_modules
 
 #Symfony
-/node_modules/
-/public/build/
 npm-debug.log
 yarn-error.log
 
