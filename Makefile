@@ -74,3 +74,15 @@ test:
 generate-keys:
 	@echo "\e[103;30m******************************         Generating JWT keypair          ******************************\e[0m\n"
 	$(PHP) "php bin/console lexik:jwt:generate-keypair --skip-if-exists"
+
+diff:
+	@echo "\e[103;30m******************************         Creating diff migration          ******************************\e[0m\n"
+	$(PHP) "php bin/console doctrine:migrations:diff"
+
+migrate:
+	@echo "\e[103;30m******************************         Migrating          ******************************\e[0m\n"
+	$(PHP) "php bin/console --no-interaction doctrine:migrations:migrate"
+
+drop:
+	@echo "\e[103;30m******************************         Droping db          ******************************\e[0m\n"
+	$(PHP) "php bin/console doctrine:schema:drop --force"
