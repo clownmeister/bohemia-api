@@ -19,7 +19,7 @@ services:
         image: ${APP_IMAGE}
         container_name: ${CONTAINER_NAME_PREFIX}-nginx
         ports:
-            - ${APP_IP}:${APP_PORT}:80
+            - ${APP_IP}:${APP_PORT}:8080
         networks:
             - internal
         depends_on:
@@ -42,12 +42,13 @@ services:
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
             JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
             JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+            MAILER_DSN: ${MAILER_DSN}
         networks:
             internal:
                 aliases:
                     - php
         volumes:
-            - ./docker/php/conf.d/php-${ENVIROMENT}.ini:/usr/local/etc/php/conf.d/zz-php.ini
+            - ./docker/php/conf.d/php-${ENVIRONMENT}.ini:/usr/local/etc/php/conf.d/zz-php.ini
             - ./:/var/www
     mysql:
         <<: *defaults
@@ -65,20 +66,6 @@ services:
             APP_HOST: ${APP_HOST}
         ports:
             - ${DB_PORT}:3306
-    php-my-admin:
-        <<: *defaults
-        container_name: ${CONTAINER_NAME_PREFIX}-phpmyadmin
-        image: phpmyadmin
-        networks:
-            internal:
-                aliases:
-                    - mysql
-        environment:
-            MYSQL_USER: ${DB_USER}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-        ports:
-            - ${PHP_MY_ADMIN_PORT}:81
     npm:
         <<: *defaults
         image: ${APP_NPM_IMAGE}
@@ -89,3 +76,28 @@ services:
                     - npm
         volumes:
             - ./:/var/www
+    php-my-admin:
+        <<: *defaults
+        container_name: ${CONTAINER_NAME_PREFIX}-phpmyadmin
+        image: phpmyadmin
+        networks:
+            internal:
+                aliases:
+                    - phpmyadmin
+        environment:
+            PMA_HOST: ${DB_HOST}
+            PMA_USER: ${DB_USER}
+            PMA_PASSWORD: ${DB_ROOT_PASSWORD}
+        ports:
+            - ${APP_IP}:${PHP_MY_ADMIN_PORT}:80
+    mailhog:
+        <<: *defaults
+        container_name: ${CONTAINER_NAME_PREFIX}-mailhog
+        image: mailhog/mailhog
+        networks:
+            internal:
+                aliases:
+                    - mailhog
+        ports:
+            - ${APP_IP}:${MAILHOG_PORT}:8025
+            - 1025:1025
