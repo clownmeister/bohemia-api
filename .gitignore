@@ -5,9 +5,11 @@ vendor
 public/build
 node_modules
 
-###> symfony/webpack-encore-bundle ###
+#Symfony
 /node_modules/
 /public/build/
 npm-debug.log
 yarn-error.log
-###< symfony/webpack-encore-bundle ###
+
+# JWT auth
+/config/jwt/*.pem

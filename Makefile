@@ -33,6 +33,7 @@ install:
 	@echo "\e[103;30m******************************         Install          ******************************\e[0m\n"
 	$(NPM) "yarn install"
 	$(PHP) "composer install"
+	make generate-keys
 
 update:
 	@echo "\e[103;30m******************************         Update          ******************************\e[0m\n"
@@ -69,3 +70,7 @@ phpstan:
 test:
 	@echo "\e[103;30m******************************         Test          ******************************\e[0m\n"
 	make phpcs phpstan
+
+generate-keys:
+	@echo "\e[103;30m******************************         Generating JWT keypair          ******************************\e[0m\n"
+	$(PHP) "php bin/console lexik:jwt:generate-keypair --skip-if-exists"
