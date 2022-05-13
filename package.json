@@ -37,16 +37,11 @@
   "scripts": {
     "buildApp": "gulp buildApp",
     "buildCSS": "gulp buildCSS",
-    "icons": "gulp buildIcons",
     "buildJS": "gulp buildJS",
-    "upload": "gulp upload",
     "watch": "gulp watch",
     "watchCSS": "gulp watchCSS",
     "watchJS": "gulp watchJS",
-    "buildDemo": "gulp buildDemo",
-    "watchDemo": "gulp watchDemo",
     "buildAll": "gulp buildAll",
-    "buildProd": "gulp buildProd",
     "watchAll": "gulp watchAll"
   },
   "devDependencies": {

@@ -49,11 +49,15 @@ build:
 
 watch:
 	@echo "\e[103;30m******************************         Watch          ******************************\e[0m\n"
-	@$(PHP) "yarn watchAll"
+	@$(NPM) "yarn watchAll"
+
+vendor:
+	@echo "\e[103;30m******************************         Clearing vendor          ******************************\e[0m\n"
+	@$(PHP) "rm -rf /vendor"
 
 cache-clear:
-	@echo "\e[103;30m******************************         CacheClear          ******************************\e[0m\n"
-	@$(PHP) "rm -rf /vendor"
+	@echo "\e[103;30m******************************         Clearing cache          ******************************\e[0m\n"
+	@$(PHP) "php bin/console cache:clear"
 
 fix:
 	@echo "\e[103;30m******************************         PHPCBF          ******************************\e[0m\n"

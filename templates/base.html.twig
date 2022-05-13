@@ -8,12 +8,13 @@
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
+        <link href="{{ asset('build/styles/bohemia-ui.bundle.min.css') }}" type="text/css" rel="stylesheet"/>
     {% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
+    <script src="{{ asset('build/scripts/bohemia-ui.bundle.min.js') }}"></script>
 {% endblock %}
 </body>
 </html>
