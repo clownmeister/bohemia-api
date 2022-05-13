@@ -34,12 +34,17 @@ services:
         environment:
             XDEBUG_CONFIG: "client_host=${XDEBUG_REMOTE_HOST}"
             PHP_IDE_CONFIG: "serverName={$APP_HOST}"
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
         networks:
             internal:
                 aliases:
                     - php
         volumes:
-            - ./docker/php/conf.d/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./docker/php/conf.d/php-${ENVIROMENT}.ini:/usr/local/etc/php/conf.d/zz-php.ini
             - ./:/var/www
     mysql:
         <<: *defaults
