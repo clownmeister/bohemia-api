@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: bohemia-api
+  description: bohemia-api
+  version: 1.0.0
+servers:
+  - url: 'https://api.bohemia.docker'
+paths:

@@ -1,0 +1,83 @@
+networks:
+    internal:
+        external: false
+        driver: bridge
+        name: ${CONTAINER_NAME_PREFIX}-internal
+
+x-defaults: &defaults
+    tty: true
+    restart: ${DOCKER_RESTART_POLICY}
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "10"
+            max-size: "10m"
+
+services:
+    nginx:
+        <<: *defaults
+        image: ${APP_IMAGE}
+        container_name: ${CONTAINER_NAME_PREFIX}-nginx
+        ports:
+            - ${APP_IP}:${APP_PORT}:80
+        networks:
+            - internal
+        depends_on:
+            - app-php
+        volumes:
+            - ./docker/nginx/conf.d/${ENVIRONMENT}.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./:/var/www
+    php:
+        <<: *defaults
+        build: './docker/php'
+        container_name: ${CONTAINER_NAME_PREFIX}-php
+        environment:
+            XDEBUG_CONFIG: "client_host=${XDEBUG_REMOTE_HOST}"
+            PHP_IDE_CONFIG: "serverName={$APP_HOST}"
+        networks:
+            internal:
+                aliases:
+                    - php
+        volumes:
+            - ./docker/php/conf.d/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./:/var/www
+    mysql:
+        <<: *defaults
+        container_name: ${CONTAINER_NAME_PREFIX}-mysql
+        image: ${APP_MYSQL_IMAGE}
+        networks:
+            internal:
+                aliases:
+                    - mysql
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            APP_HOST: ${APP_HOST}
+        ports:
+            - ${DB_PORT}:3306
+    php-my-admin:
+        <<: *defaults
+        container_name: ${CONTAINER_NAME_PREFIX}-phpmyadmin
+        image: phpmyadmin
+        networks:
+            internal:
+                aliases:
+                    - mysql
+        environment:
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        ports:
+            - ${PHP_MY_ADMIN_PORT}:81
+    npm:
+        <<: *defaults
+        image: ${APP_NPM_IMAGE}
+        container_name: ${CONTAINER_NAME_PREFIX}-npm
+        networks:
+            internal:
+                aliases:
+                    - npm
+        volumes:
+            - ./:/var/www

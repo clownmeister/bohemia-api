@@ -1,5 +1,14 @@
 # Readme
 
+## Requirements for local development
+
+1) Docker
+2) Make
+
+## Installation
+
+1)
+
 ## Design:
 
 ### Features:
