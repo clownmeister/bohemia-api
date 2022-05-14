@@ -10,9 +10,10 @@ env:
 	@{ \
 	if [ ! -f ./.env ]; then \
 		echo "\e[91mEnv not found!\e[0m Creating...";\
-		cp ./.env.local ./.env;\
+		sed -e 's/{DEV_UID}/$(shell id -u)/g' -e 's/{DEV_GID}/$(shell id -g)/g' .env.local >> .env;\
 		chmod 755 ./.env;\
 		echo "\e[92mEnv file created.\e[0m\n";\
+		echo "Don't forget to fill out all secrets.\n";\
 	else \
 		echo "Env file \e[92mOK\e[0m.\n";\
 	fi \
@@ -52,7 +53,7 @@ watch:
 	@echo "\e[103;30m******************************         Watch          ******************************\e[0m\n"
 	@$(NPM) "yarn watchAll"
 
-vendor:
+vendor-clear:
 	@echo "\e[103;30m******************************         Clearing vendor          ******************************\e[0m\n"
 	@$(PHP) "rm -rf /vendor"
 
