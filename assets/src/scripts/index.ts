@@ -1,1 +1,1 @@
-console.log('init')
+require('bootstrap')

@@ -1,19 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
 namespace ClownMeister\BohemiaApi\Entity;
 
-use ClownMeister\BohemiaApi\Repository\PostRepository;
+use ClownMeister\BohemiaApi\Repository\CommentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Ulid;
 use Symfony\Component\Uid\UuidV4;
 
 /**
- * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
-class Post
+class Comment
 {
     /**
      * @ORM\Id
@@ -21,74 +18,49 @@ class Post
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
-    private Ulid $id;
-
+    private UuidV4 $id;
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, nullable=true)
      */
     private string $title;
-
     /**
-     * @ORM\Column(type="text", length=65535, nullable=true)
+     * @ORM\Column(type="string", length=1024, nullable=true)
      */
-    private string $html;
-
+    private string $text;
     /**
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\OneToMany(targetEntity="ClownMeister\BohemiaApi\Entity\User",mappedBy="id")
      */
     private UuidV4 $author_id;
-
     /**
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $created_at;
-
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private DateTimeImmutable $edited_at;
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
-    private bool $published;
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @ORM\Column(type="boolean")
      */
     private bool $archived;
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @ORM\Column(type="boolean")
      */
     private bool $deleted;
 
     /**
-     * @return DateTimeImmutable
+     * @return UuidV4
      */
-    public function getEditedAt(): DateTimeImmutable
-    {
-        return $this->edited_at;
-    }
-
-    /**
-     * @param DateTimeImmutable $edited_at
-     */
-    public function setEditedAt(DateTimeImmutable $edited_at): void
-    {
-        $this->edited_at = $edited_at;
-    }
-
-    /**
-     * @return Ulid
-     */
-    public function getId(): Ulid
+    public function getId(): UuidV4
     {
         return $this->id;
     }
 
     /**
-     * @param Ulid $id
+     * @param UuidV4 $id
      */
-    public function setId(Ulid $id): void
+    public function setId(UuidV4 $id): void
     {
         $this->id = $id;
     }
@@ -112,17 +84,17 @@ class Post
     /**
      * @return string
      */
-    public function getHtml(): string
+    public function getText(): string
     {
-        return $this->html;
+        return $this->text;
     }
 
     /**
-     * @param string $html
+     * @param string $text
      */
-    public function setHtml(string $html): void
+    public function setText(string $text): void
     {
-        $this->html = $html;
+        $this->text = $text;
     }
 
     /**
@@ -158,19 +130,19 @@ class Post
     }
 
     /**
-     * @return bool
+     * @return DateTimeImmutable
      */
-    public function isPublished(): bool
+    public function getEditedAt(): DateTimeImmutable
     {
-        return $this->published;
+        return $this->edited_at;
     }
 
     /**
-     * @param bool $published
+     * @param DateTimeImmutable $edited_at
      */
-    public function setPublished(bool $published): void
+    public function setEditedAt(DateTimeImmutable $edited_at): void
     {
-        $this->published = $published;
+        $this->edited_at = $edited_at;
     }
 
     /**
@@ -204,4 +176,5 @@ class Post
     {
         $this->deleted = $deleted;
     }
+
 }

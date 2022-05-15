@@ -1,17 +1,15 @@
 <?php
 
-declare(strict_types=1);
+namespace ClownMeister\BohemiaApi\Controller;
 
-namespace ClownMeister\BohemiaApi\Controller\Admin;
-
-use ClownMeister\BohemiaApi\Entity\User;
+use ClownMeister\BohemiaApi\Entity\Role;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class UserCrudController extends AbstractCrudController
+class RoleCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return Role::class;
     }
 
     /*

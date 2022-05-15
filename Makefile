@@ -30,12 +30,21 @@ npm:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
 	docker exec -it -w /var/www bapi-npm bash
 
+composer-install:
+	@echo "\e[103;30m******************************         Composer Install          ******************************\e[0m\n"
+	$(PHP) "composer install"
+
+yarn-install:
+	@echo "\e[103;30m******************************         Yarn Install          ******************************\e[0m\n"
+	$(NPM) "yarn install"
+
 install:
 	@echo "\e[103;30m******************************         Install          ******************************\e[0m\n"
-	$(NPM) "yarn install"
-	$(PHP) "composer install"
+	make yarn-install
+	make composer-install
 	make generate-keys
 	make migrate
+	make build
 
 update:
 	@echo "\e[103;30m******************************         Update          ******************************\e[0m\n"

@@ -62,7 +62,6 @@ Execute only in root of the project
   * Login page
   * User edit/create/enable/disable (create surname + firstname abbreviation)
   * Roles edit/create
-  * Permissions edit/create
   * Posts edit/create
 
 ### Permissions
@@ -120,3 +119,12 @@ Execute only in root of the project
 * role:add
 * role:remove
 * role:edit
+
+### Tech-debt & notes
+
+* Repository remove "remove" method
+* Link tables missing
+* Move unnecessary data out of User table
+* Weird entity encapsulation. No time to investigate.
+* No time for SOLID :(
+* Emails need editor. Used https://dashboard.unlayer.com/ for POC.

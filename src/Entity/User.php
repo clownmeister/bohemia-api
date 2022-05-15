@@ -6,13 +6,15 @@ namespace ClownMeister\BohemiaApi\Entity;
 
 use ClownMeister\BohemiaApi\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Uid\Ulid;
 
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository", repositoryClass=UserRepository::class)
  */
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -21,41 +23,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
-    private UuidV4 $id;
-
+    private Ulid $id;
     /**
      * @ORM\Column(type="string")
      */
     private string $firstname;
-
     /**
      * @ORM\Column(type="string")
      */
     private string $lastname;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $nickname;
+    private ?string $displayName;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $phone;
+    private ?string $phone;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $street;
+    private ?string $street;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $city;
+    private ?string $city;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $state;
+    private ?string $state;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $zip;
+    private ?string $country;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $zip;
     /**
      * @ORM\Column(type="string")
      */
@@ -67,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string[]
      * @ORM\Column(type="json")
+     * @ORM\ManyToMany(targetEntity="ClownMeister\BohemiaApi\Entity\Role", mappedBy="name")
      */
     private array $roles = [];
     /**
@@ -74,19 +79,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isVerified;
 
     /**
-     * @return UuidV4
+     * @return string|null
      */
-    public function getId(): UuidV4
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string|null $country
+     */
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return Ulid
+     */
+    public function getId(): Ulid
     {
         return $this->id;
     }
 
     /**
-     * @param UuidV4 $id
+     * @param Ulid $id
      */
-    public function setId(UuidV4 $id): void
+    public function setId(Ulid $id): void
     {
         $this->id = $id;
     }
@@ -124,97 +149,97 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNickname(): string
+    public function getDisplayName(): ?string
     {
-        return $this->nickname;
+        return $this->displayName;
     }
 
     /**
-     * @param string $nickname
+     * @param string|null $displayName
      */
-    public function setNickname(string $nickname): void
+    public function setDisplayName(?string $displayName): void
     {
-        $this->nickname = $nickname;
+        $this->displayName = $displayName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
     /**
-     * @param string $phone
+     * @param string|null $phone
      */
-    public function setPhone(string $phone): void
+    public function setPhone(?string $phone): void
     {
         $this->phone = $phone;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
     /**
-     * @param string $street
+     * @param string|null $street
      */
-    public function setStreet(string $street): void
+    public function setStreet(?string $street): void
     {
         $this->street = $street;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
     /**
-     * @param string $city
+     * @param string|null $city
      */
-    public function setCity(string $city): void
+    public function setCity(?string $city): void
     {
         $this->city = $city;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @param string $state
+     * @param string|null $state
      */
-    public function setState(string $state): void
+    public function setState(?string $state): void
     {
         $this->state = $state;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZip(): string
+    public function getZip(): ?string
     {
         return $this->zip;
     }
 
     /**
-     * @param string $zip
+     * @param string|null $zip
      */
-    public function setZip(string $zip): void
+    public function setZip(?string $zip): void
     {
         $this->zip = $zip;
     }
@@ -315,5 +340,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }
