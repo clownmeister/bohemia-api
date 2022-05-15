@@ -24,23 +24,23 @@
 
 Execute only in root of the project
 
-| Command            | Description                                                             |
-|--------------------|-------------------------------------------------------------------------|
-| `make`             | Easy start up. Starts docker, installs, builds.                         |
-| `make env`         | Copies .env file. In some cases fills out some things.                  |
-| `make up`          | Starts/Restarts containers.                                             |
-| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. |
-| `make udpate`      | Runs composer update.                                                   |
-| `make vendor`      | Clears vendor.                                                          |
-| `make cache-clear` | Clears symfony cache.                                                   |
-| `make build`       | Builds assets into build folder.                                        |
-| `make watch`       | Runs asset watcher.                                                     |
-| `make test`        | Runs all tests.                                                         |
-| `make phpcs`       | Runs PHP code sniffer.                                                  |
-| `make fix`         | Fixes all fixable code style issues from PHPCS.                         |
-| `make phpstan`     | Runs PHPStan.                                                           |
-| `make diff`        | Creates ORM migration.                                                  |
-| `make migrate`     | Migrates to latest migration.                                           |
+| Command            | Description                                                                            |
+|--------------------|----------------------------------------------------------------------------------------|
+| `make`             | Easy start up. Starts docker, installs, builds.                                        |
+| `make env`         | Copies .env file. In some cases fills out some things.                                 |
+| `make up`          | Starts/Restarts containers.                                                            |
+| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. Builds assets. |
+| `make udpate`      | Runs composer update.                                                                  |
+| `make vendor`      | Clears vendor.                                                                         |
+| `make cache-clear` | Clears symfony cache.                                                                  |
+| `make build`       | Builds assets into build folder.                                                       |
+| `make watch`       | Runs asset watcher.                                                                    |
+| `make test`        | Runs all tests.                                                                        |
+| `make phpcs`       | Runs PHP code sniffer.                                                                 |
+| `make fix`         | Fixes all fixable code style issues from PHPCS.                                        |
+| `make phpstan`     | Runs PHPStan.                                                                          |
+| `make diff`        | Creates ORM migration.                                                                 |
+| `make migrate`     | Migrates to latest migration.                                                          |
 
 ## Design:
 

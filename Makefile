@@ -3,7 +3,7 @@ NPM = docker exec -it -w /var/www bapi-npm bash -c
 
 default:
 	@echo "\e[102;30m******************************         Izi Start          ******************************\e[0m\n"
-	@make env up install build
+	@make env up install
 
 env:
 	@echo "\n\e[92mChecking for existing env file\e[0m"
@@ -99,5 +99,5 @@ migrate:
 	$(PHP) "php bin/console --no-interaction doctrine:migrations:migrate"
 
 drop:
-	@echo "\e[103;30m******************************         Droping db          ******************************\e[0m\n"
+	@echo "\e[103;30m******************************         Dropping db          ******************************\e[0m\n"
 	$(PHP) "php bin/console doctrine:schema:drop --force"
