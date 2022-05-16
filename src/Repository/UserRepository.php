@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Repository;
 
 use ClownMeister\BohemiaApi\Entity\User;
+use ClownMeister\BohemiaApi\Exception\DuplicateUserException;
+use ClownMeister\BohemiaApi\Exception\InvalidUserTypeException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -14,12 +18,13 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
+ * @method User loadUserByIdentifier(string $identifier)
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -49,28 +54,41 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         $this->add($user, true);
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function loadUserByUsername(string $username): User
+    {
+        try {
+            $user = $this->getEntityManager()->createQueryBuilder()
+                ->select('u')
+                ->from('App:Entity\User', 'u')
+                ->where('u.username = :username')
+                ->getQuery()
+                ->setParameter('username', $username)
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $exception) {
+            throw new DuplicateUserException(previous: $exception);
+        }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (!$user instanceof User) {
+            throw new InvalidUserTypeException();
+        }
+        $user->setRoles(array_merge($user->getRoles(), $this->getDefaultRoles()));
+
+        return $user;
+    }
+
+    private function getDefaultRoles(): array
+    {
+        $result = [];
+        $items = $this->getEntityManager()->createQueryBuilder()
+            ->select('r')
+            ->from('App:Entity\Role', 'r')
+            ->where('r.isDefault = 1')
+            ->getQuery()
+            ->getResult();
+        foreach ($items as $role) {
+            $result[] = $role->getName();
+        }
+
+        return $result;
+    }
 }

@@ -34,6 +34,31 @@ final class RoleRepository extends ServiceEntityRepository
 
     public function getChoices(): array
     {
-        return array_map(fn(Role $role): array => [$role->getName() => $role->getId()], $this->findAll());
+        return $this->toArray($this->findAll());
+    }
+
+    public function getDefault(): array
+    {
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('r.id, r.is_default')
+            ->from('Role', 'r')
+            ->where('r.is_default = 1')
+            ->getQuery();
+
+        return $this->toArray($query->getResult());
+    }
+
+    /**
+     * @param Role[] $items
+     *
+     * @return array<string, string>
+     */
+    private function toArray(array $items): array
+    {
+        $result = [];
+        foreach ($items as $role) {
+            $result[$role->getName()] = $role->getId();
+        }
+        return $result;
     }
 }

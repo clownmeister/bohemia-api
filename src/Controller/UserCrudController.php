@@ -27,9 +27,6 @@ final class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        dump($this->roleRepository->findAll());
-        dump($this->roleRepository->getChoices());
-        die();
         return [
             IdField::new('id')
                 ->hideWhenCreating()
@@ -45,7 +42,13 @@ final class UserCrudController extends AbstractCrudController
                 ->setRequired(true),
             TextField::new('password')
                 ->hideOnDetail()
-                ->setRequired(true),
+                ->setRequired(true)
+                ->setDisabled(),
+            ChoiceField::new('roles')
+                ->allowMultipleChoices()
+                ->autocomplete()
+                ->setChoices($this->roleRepository->getChoices())
+                ->renderAsBadges(),
             TelephoneField::new('phone')
                 ->setRequired(false),
             CountryField::new('country')
@@ -57,13 +60,7 @@ final class UserCrudController extends AbstractCrudController
             TextField::new('street')
                 ->setRequired(false),
             TextField::new('zip')
-                ->setRequired(false),
-            ChoiceField::new('roles')
-                ->allowMultipleChoices()
-                ->autocomplete()
-                ->setChoices($this->roleRepository->getChoices())
-                ->renderAsNativeWidget()
-
+                ->setRequired(false)
         ];
     }
 }

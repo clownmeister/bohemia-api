@@ -90,22 +90,33 @@ Execute only in root of the project
 
 ### Permissions
 
-* comment:remove
-* comment:add
-* comment:restore
-* post:edit
-* post:add
-* post:remove
-* post:publish
-* post:restore
-* user:add
-* user:remove
-* user:enable
-* user:disable
-* role:view
-* role:add
-* role:remove
-* role:edit
+* ROLE_USER
+  * default
+* ROLE_MODERATOR
+* ROLE_ADMIN
+* ROLE_COMMENT_VIEW
+  * View admin comments section
+* ROLE_COMMENT_ADD
+* ROLE_COMMENT_REMOVE
+* ROLE_COMMENT_RESTORE
+* ROLE_POST_VIEW
+  * View admin posts section
+* ROLE_POST_ADD
+* ROLE_POST_EDIT
+* ROLE_POST_REMOVE
+* ROLE_POST_RESTORE
+* ROLE_POST_PUBLISH
+* ROLE_USER_VIEW
+  * View admin users section
+* ROLE_USER_ADD
+* ROLE_USER_EDIT
+* ROLE_USER_REMOVE
+* ROLE_USER_ENABLE
+* ROLE_USER_DISABLE
+* ROLE_ROLE_VIEW
+  * View admin roles section
+* ROLE_ROLE_ADD
+* ROLE_ROLE_REMOVE
 
 ### Default roles & permissions:
 

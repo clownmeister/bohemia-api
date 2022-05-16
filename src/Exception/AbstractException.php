@@ -17,6 +17,7 @@ abstract class AbstractException extends Exception
     protected const HTTP_INTERNAL_SERVER_ERROR = 500;
 
     protected const INVALID_USER_TYPE = 'INVALID_USER_TYPE';
+    protected const DUPLICATE_USER = 'DUPLICATE_USER';
 
     protected const MAIL_SERVICE_UNAVAILABLE = 'MAIL_SERVICE_UNAVAILABLE';
 
