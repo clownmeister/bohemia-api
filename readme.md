@@ -20,11 +20,20 @@
 * Access **Mailhog** at <http://api.bohemia.docker:82>
 * Access **Status** at <http://api.bohemia.docker/status>
 
+## Login
+
 Login to backoffice with default user:
 
 | User  | Pass   |
 |-------|--------|
 | admin | 123456 |
+
+You can register new user if you want, but you need to set up roles via admin. After registration run `make send-mail`
+to send queued emails with confirmation link.
+
+In the email you will also find your new username.
+
+You will be able to get the email from <http://api.bohemia.docker:82>.
 
 ## Commands:
 
