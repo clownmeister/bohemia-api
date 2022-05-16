@@ -24,23 +24,24 @@
 
 Execute only in root of the project
 
-| Command            | Description                                                             |
-|--------------------|-------------------------------------------------------------------------|
-| `make`             | Easy start up. Starts docker, installs, builds.                         |
-| `make env`         | Copies .env file. In some cases fills out some things.                  |
-| `make up`          | Starts/Restarts containers.                                             |
-| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. |
-| `make udpate`      | Runs composer update.                                                   |
-| `make vendor`      | Clears vendor.                                                          |
-| `make cache-clear` | Clears symfony cache.                                                   |
-| `make build`       | Builds assets into build folder.                                        |
-| `make watch`       | Runs asset watcher.                                                     |
-| `make test`        | Runs all tests.                                                         |
-| `make phpcs`       | Runs PHP code sniffer.                                                  |
-| `make fix`         | Fixes all fixable code style issues from PHPCS.                         |
-| `make phpstan`     | Runs PHPStan.                                                           |
-| `make diff`        | Creates ORM migration.                                                  |
-| `make migrate`     | Migrates to latest migration.                                           |
+| Command            | Description                                                                            |
+|--------------------|----------------------------------------------------------------------------------------|
+| `make`             | Easy start up. Starts docker, installs, builds.                                        |
+| `make env`         | Copies .env file. In some cases fills out some things.                                 |
+| `make up`          | Starts/Restarts containers.                                                            |
+| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. Builds assets. |
+| `make udpate`      | Runs composer update.                                                                  |
+| `make vendor`      | Clears vendor.                                                                         |
+| `make cache-clear` | Clears symfony cache.                                                                  |
+| `make build`       | Builds assets into build folder.                                                       |
+| `make watch`       | Runs asset watcher.                                                                    |
+| `make test`        | Runs all tests.                                                                        |
+| `make phpcs`       | Runs PHP code sniffer.                                                                 |
+| `make fix`         | Fixes all fixable code style issues from PHPCS.                                        |
+| `make phpstan`     | Runs PHPStan.                                                                          |
+| `make diff`        | Creates ORM migration.                                                                 |
+| `make migrate`     | Migrates to latest migration.                                                          |
+| `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
 
 ## Design:
 
@@ -62,7 +63,6 @@ Execute only in root of the project
   * Login page
   * User edit/create/enable/disable (create surname + firstname abbreviation)
   * Roles edit/create
-  * Permissions edit/create
   * Posts edit/create
 
 ### Permissions
@@ -120,3 +120,12 @@ Execute only in root of the project
 * role:add
 * role:remove
 * role:edit
+
+### Tech-debt & notes
+
+* Repository remove "remove" method
+* Link tables missing
+* Move unnecessary data out of User table
+* Weird entity encapsulation. No time to investigate.
+* No time for SOLID :(
+* Emails need editor. Used https://dashboard.unlayer.com/ for POC.

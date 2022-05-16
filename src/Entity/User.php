@@ -1,17 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Entity;
 
 use ClownMeister\BohemiaApi\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository", repositoryClass=UserRepository::class)
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+final class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -19,42 +24,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
-    private UuidV4 $id;
-
+    private string $id;
     /**
      * @ORM\Column(type="string")
      */
     private string $firstname;
-
     /**
      * @ORM\Column(type="string")
      */
     private string $lastname;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $nickname;
+    private ?string $displayName;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $phone;
+    private ?string $phone;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $street;
+    private ?string $street;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $city;
+    private ?string $city;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $state;
+    private ?string $state;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private string $zip;
-
+    private ?string $country;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $zip;
     /**
      * @ORM\Column(type="string")
      */
@@ -66,6 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string[]
      * @ORM\Column(type="json")
+     * @ORM\ManyToMany(targetEntity="ClownMeister\BohemiaApi\Entity\Role", mappedBy="name")
      */
     private array $roles = [];
     /**
@@ -73,13 +80,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private string $password;
+    /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private ?bool $isVerified = false;
+    /**
+     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private DateTimeImmutable $created_at;
+
+    public function __construct()
+    {
+        $this->created_at = new DateTimeImmutable();
+    }
 
     /**
-     * @return UuidV4
+     * @return string|null
      */
-    public function getId(): UuidV4
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string|null $country
+     */
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
     }
 
     /**
@@ -91,6 +135,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @param string $firstname
+     */
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
      * @return string
      */
     public function getLastname(): string
@@ -99,51 +151,107 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
+     * @param string $lastname
      */
-    public function getNickname(): string
+    public function setLastname(string $lastname): void
     {
-        return $this->nickname;
+        $this->lastname = $lastname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPhone(): string
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @param string|null $displayName
+     */
+    public function setDisplayName(?string $displayName): void
+    {
+        $this->displayName = $displayName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
     /**
-     * @return string
+     * @param string|null $phone
      */
-    public function getStreet(): string
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
     /**
-     * @return string
+     * @param string|null $street
      */
-    public function getCity(): string
+    public function setStreet(?string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
     /**
-     * @return string
+     * @param string|null $city
      */
-    public function getState(): string
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @return string
+     * @param string|null $state
      */
-    public function getZip(): string
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getZip(): ?string
     {
         return $this->zip;
+    }
+
+    /**
+     * @param string|null $zip
+     */
+    public function setZip(?string $zip): void
+    {
+        $this->zip = $zip;
     }
 
     /**
@@ -155,11 +263,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
     public function getUsername(): string
     {
         return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 
     /**
@@ -185,11 +309,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @param string[] $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    /**
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     /**
@@ -210,5 +350,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param bool|null $isVerified
+     */
+    public function setIsVerified(?bool $isVerified): void
+    {
+        $this->isVerified = $isVerified;
     }
 }

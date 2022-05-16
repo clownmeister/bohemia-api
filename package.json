@@ -4,7 +4,9 @@
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Lucián Blažek",
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
     "autoprefixer": "^9.8.6",
+    "bootstrap": "5.2.0-beta1",
     "browserify": "^17.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",

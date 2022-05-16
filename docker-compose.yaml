@@ -29,11 +29,17 @@ services:
             - ./:/var/www
     php:
         <<: *defaults
-        build: './docker/php'
+        build:
+            context: './docker/php'
+            args:
+                DEV_GID: ${DEV_GID}
+                DEV_UID: ${DEV_UID}
         container_name: ${CONTAINER_NAME_PREFIX}-php
+        user: ${DEV_UID}:${DEV_GID}
         environment:
             XDEBUG_CONFIG: "client_host=${XDEBUG_REMOTE_HOST}"
             PHP_IDE_CONFIG: "serverName={$APP_HOST}"
+            MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN}
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
             DB_DATABASE: ${DB_DATABASE}
@@ -52,8 +58,8 @@ services:
             - ./:/var/www
     mysql:
         <<: *defaults
-        container_name: ${CONTAINER_NAME_PREFIX}-mysql
         image: ${APP_MYSQL_IMAGE}
+        container_name: ${CONTAINER_NAME_PREFIX}-mysql
         networks:
             internal:
                 aliases:
@@ -78,8 +84,8 @@ services:
             - ./:/var/www
     php-my-admin:
         <<: *defaults
-        container_name: ${CONTAINER_NAME_PREFIX}-phpmyadmin
         image: phpmyadmin
+        container_name: ${CONTAINER_NAME_PREFIX}-phpmyadmin
         networks:
             internal:
                 aliases:
@@ -92,8 +98,8 @@ services:
             - ${APP_IP}:${PHP_MY_ADMIN_PORT}:80
     mailhog:
         <<: *defaults
-        container_name: ${CONTAINER_NAME_PREFIX}-mailhog
         image: mailhog/mailhog
+        container_name: ${CONTAINER_NAME_PREFIX}-mailhog
         networks:
             internal:
                 aliases:

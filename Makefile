@@ -3,16 +3,17 @@ NPM = docker exec -it -w /var/www bapi-npm bash -c
 
 default:
 	@echo "\e[102;30m******************************         Izi Start          ******************************\e[0m\n"
-	@make env up install build
+	@make env up install
 
 env:
 	@echo "\n\e[92mChecking for existing env file\e[0m"
 	@{ \
 	if [ ! -f ./.env ]; then \
 		echo "\e[91mEnv not found!\e[0m Creating...";\
-		cp ./.env.local ./.env;\
+		sed -e 's/{DEV_UID}/$(shell id -u)/g' -e 's/{DEV_GID}/$(shell id -g)/g' .env.local >> .env;\
 		chmod 755 ./.env;\
 		echo "\e[92mEnv file created.\e[0m\n";\
+		echo "Don't forget to fill out all secrets.\n";\
 	else \
 		echo "Env file \e[92mOK\e[0m.\n";\
 	fi \
@@ -29,12 +30,21 @@ npm:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
 	docker exec -it -w /var/www bapi-npm bash
 
+composer-install:
+	@echo "\e[103;30m******************************         Composer Install          ******************************\e[0m\n"
+	$(PHP) "composer install"
+
+yarn-install:
+	@echo "\e[103;30m******************************         Yarn Install          ******************************\e[0m\n"
+	$(NPM) "yarn install"
+
 install:
 	@echo "\e[103;30m******************************         Install          ******************************\e[0m\n"
-	$(NPM) "yarn install"
-	$(PHP) "composer install"
+	make yarn-install
+	make composer-install
 	make generate-keys
 	make migrate
+	make build
 
 update:
 	@echo "\e[103;30m******************************         Update          ******************************\e[0m\n"
@@ -52,7 +62,7 @@ watch:
 	@echo "\e[103;30m******************************         Watch          ******************************\e[0m\n"
 	@$(NPM) "yarn watchAll"
 
-vendor:
+vendor-clear:
 	@echo "\e[103;30m******************************         Clearing vendor          ******************************\e[0m\n"
 	@$(PHP) "rm -rf /vendor"
 
@@ -89,5 +99,8 @@ migrate:
 	$(PHP) "php bin/console --no-interaction doctrine:migrations:migrate"
 
 drop:
-	@echo "\e[103;30m******************************         Droping db          ******************************\e[0m\n"
+	@echo "\e[103;30m******************************         Dropping db          ******************************\e[0m\n"
 	$(PHP) "php bin/console doctrine:schema:drop --force"
+
+send-mail:
+	$(PHP) "php bin/console messenger:consume async -vv"

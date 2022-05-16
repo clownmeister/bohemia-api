@@ -50,7 +50,7 @@ function minifyJs (src, out, name, debug) {
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(out))
-    .pipe(gulp.dest('public/' + out))
+    .pipe(gulp.dest('/' + out))
     .on('error', swallowError)
 }
 
@@ -76,7 +76,7 @@ function scripts (src, out, name, debug, minify) {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(out))
-    .pipe(gulp.dest('public/' + out))
+    .pipe(gulp.dest('/' + out))
 
   if (minify) {
     minifyJs(src, out, name, debug)
@@ -95,13 +95,13 @@ function styles (src, out, name, minify) {
     .pipe(sourcemaps.write())
     .pipe(rename({ basename: name }))
     .pipe(gulp.dest(out))
-    .pipe(gulp.dest('public/' + out))
+    .pipe(gulp.dest('/' + out))
 
   if (minify) {
     stream.pipe(cleanCss())
       .pipe(rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.cssDist))
-      .pipe(gulp.dest('public/' + paths.cssDist))
+      .pipe(gulp.dest('/' + paths.cssDist))
   }
   return stream
 }

@@ -1,7 +1,25 @@
 FROM php:8.1-fpm-buster
 
-RUN apt update && apt upgrade -y && apt-get install -y bash git zip unzip
-RUN docker-php-ext-configure pcntl --enable-pcntl && docker-php-ext-install pcntl
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN pecl install xdebug
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+USER root
+
+#Base install
+RUN apt update && apt upgrade -y && apt-get install -y bash git&& \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    docker-php-ext-configure pcntl --enable-pcntl && docker-php-ext-install pcntl && \
+    docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql && \
+    pecl install xdebug
+
+
+#Install php zip extension
+RUN apt-get install -y libzip-dev zip && \
+  docker-php-ext-install zip
+
+
+#Let'd add user so we dont run into issues with permissions on Mac and Windows WSL
+ARG DEV_UID
+ARG DEV_GID
+ENV DEV_UID=${DEV_UID}
+ENV DEV_GID=${DEV_GID}
+
+RUN addgroup --gid ${DEV_GID} dev
+RUN adduser --uid ${DEV_UID} dev --gid ${DEV_GID}
