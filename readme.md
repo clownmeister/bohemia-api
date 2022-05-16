@@ -20,6 +20,27 @@
 * Access **Mailhog** at <http://api.bohemia.docker:82>
 * Access **Status** at <http://api.bohemia.docker/status>
 
+## Login
+
+Login to backoffice with default user:
+
+| User  | Pass   |
+|-------|--------|
+| admin | 123456 |
+
+You can register new user if you want, but you need to set up roles via admin. After registration run `make send-mail`
+to send queued emails with confirmation link.
+
+In the email you will also find your new username.
+
+You will be able to get the email from <http://api.bohemia.docker:82>.
+
+## Email
+
+Run `make send-mail` to consume the queue.
+
+Catch the emails at <http://api.bohemia.docker:82>
+
 ## Commands:
 
 Execute only in root of the project
@@ -41,9 +62,12 @@ Execute only in root of the project
 | `make phpstan`     | Runs PHPStan.                                                                          |
 | `make diff`        | Creates ORM migration.                                                                 |
 | `make migrate`     | Migrates to latest migration.                                                          |
+| `make migration`   | Creates blank migration.                                                               |
+| `make drop`        | Drops db and clears migration history.                                                 |
+| `make validate`    | Validates db schema against mapper.                                                    |
 | `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
 
-## Design:
+## Dev notes & todo:
 
 ### Features:
 
@@ -51,14 +75,13 @@ Execute only in root of the project
 
 ### Design
 
-* Api
-  * GET/POST:/api/v1/session/new (Login)
+* Api (tba - wip)
+  * GET/POST:/api/v1/session/new (sso/auth?)
   * POST:/api/v1/session (Login)
   * DELETE:/api/v1/session (Logout)
   * GET:/api/v1/users (get user data)
   * GET:/api/v1/posts (get post list)
   * GET:/api/v1/posts/:postId (get post)
-  * DELETE:/api/v1/posts/:postId (delete post)
 * Backend
   * Login page
   * User edit/create/enable/disable (create surname + firstname abbreviation)
@@ -67,25 +90,33 @@ Execute only in root of the project
 
 ### Permissions
 
-* comment:remove
-* comment:add
-* comment:restore
-* post:edit
-* post:add
-* post:remove
-* post:publish
-* post:restore
-* user:add
-* user:remove
-* user:enable
-* user:disable
-* permission:view
-* permission:add
-* permission:remove
-* role:view
-* role:add
-* role:remove
-* role:edit
+* ROLE_USER
+  * default
+* ROLE_MODERATOR
+* ROLE_ADMIN
+* ROLE_COMMENT_VIEW
+  * View admin comments section
+* ROLE_COMMENT_ADD
+* ROLE_COMMENT_REMOVE
+* ROLE_COMMENT_RESTORE
+* ROLE_POST_VIEW
+  * View admin posts section
+* ROLE_POST_ADD
+* ROLE_POST_EDIT
+* ROLE_POST_REMOVE
+* ROLE_POST_RESTORE
+* ROLE_POST_PUBLISH
+* ROLE_USER_VIEW
+  * View admin users section
+* ROLE_USER_ADD
+* ROLE_USER_EDIT
+* ROLE_USER_REMOVE
+* ROLE_USER_ENABLE
+* ROLE_USER_DISABLE
+* ROLE_ROLE_VIEW
+  * View admin roles section
+* ROLE_ROLE_ADD
+* ROLE_ROLE_REMOVE
 
 ### Default roles & permissions:
 
@@ -98,6 +129,7 @@ Execute only in root of the project
 * comment:add
 * post:add
 * post:publish
+* post:archive
 
 #### Admin
 
@@ -106,6 +138,7 @@ Execute only in root of the project
 * comment:restore
 * post:edit
 * post:add
+* post:archive
 * post:remove
 * post:publish
 * post:restore
@@ -113,9 +146,6 @@ Execute only in root of the project
 * user:remove
 * user:enable
 * user:disable
-* permission:view
-* permission:add
-* permission:remove
 * role:view
 * role:add
 * role:remove

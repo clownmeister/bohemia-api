@@ -14,15 +14,35 @@ final class Role
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="ulid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
     private string $id;
-
     /**
      * @ORM\Column(type="string", length=64)
      */
     private string $name;
+    /**
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private ?bool $isDefault = false;
+
+    /**
+     * @return bool|null
+     */
+    public function getIsDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @param bool|null $isDefault
+     */
+    public function setIsDefault(?bool $isDefault): void
+    {
+        $this->isDefault = $isDefault;
+    }
 
     /**
      * @return string

@@ -9,11 +9,14 @@ RUN apt update && apt upgrade -y && apt-get install -y bash git&& \
     docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql && \
     pecl install xdebug
 
-
 #Install php zip extension
 RUN apt-get install -y libzip-dev zip && \
   docker-php-ext-install zip
 
+#Install intl extension
+RUN apt-get install -y libicu-dev && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl
 
 #Let'd add user so we dont run into issues with permissions on Mac and Windows WSL
 ARG DEV_UID

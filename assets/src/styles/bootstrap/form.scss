@@ -1,0 +1,6 @@
+.form-control {
+  &:disabled, &[readOnly] {
+    //easy admin form-control conflict
+    background-color: $input-disabled-color !important;
+  }
+}
