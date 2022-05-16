@@ -35,6 +35,12 @@ In the email you will also find your new username.
 
 You will be able to get the email from <http://api.bohemia.docker:82>.
 
+## Email
+
+Run `make send-mail` to consume the queue.
+
+Catch the emails at <http://api.bohemia.docker:82>
+
 ## Commands:
 
 Execute only in root of the project
