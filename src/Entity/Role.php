@@ -1,22 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Entity;
 
 use ClownMeister\BohemiaApi\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Ulid;
 
 /**
  * @ORM\Entity(repositoryClass=RoleRepository::class)
  */
-class Role
+final class Role
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private Ulid $id;
+    private string $id;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -24,17 +25,17 @@ class Role
     private string $name;
 
     /**
-     * @return Ulid
+     * @return string
      */
-    public function getId(): Ulid
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param Ulid $id
+     * @param string $id
      */
-    public function setId(Ulid $id): void
+    public function setId(string $id): void
     {
         $this->id = $id;
     }

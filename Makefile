@@ -101,3 +101,6 @@ migrate:
 drop:
 	@echo "\e[103;30m******************************         Dropping db          ******************************\e[0m\n"
 	$(PHP) "php bin/console doctrine:schema:drop --force"
+
+send-mail:
+	$(PHP) "php bin/console messenger:consume async -vv"

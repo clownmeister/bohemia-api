@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Entity;
 
 use ClownMeister\BohemiaApi\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Uid\Ulid;
 
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository", repositoryClass=UserRepository::class)
  */
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+final class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -23,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
-    private Ulid $id;
+    private string $id;
     /**
      * @ORM\Column(type="string")
      */
@@ -80,9 +81,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private string $password;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private bool $isVerified;
+    private ?bool $isVerified = false;
+    /**
+     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private DateTimeImmutable $created_at;
+
+    public function __construct()
+    {
+        $this->created_at = new DateTimeImmutable();
+    }
 
     /**
      * @return string|null
@@ -101,17 +111,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Ulid
+     * @return string
      */
-    public function getId(): Ulid
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param Ulid $id
+     * @param string $id
      */
-    public function setId(Ulid $id): void
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
@@ -342,15 +352,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function isVerified(): bool
+    /**
+     * @return bool|null
+     */
+    public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    /**
+     * @param bool|null $isVerified
+     */
+    public function setIsVerified(?bool $isVerified): void
     {
         $this->isVerified = $isVerified;
-
-        return $this;
     }
 }

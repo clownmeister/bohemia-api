@@ -41,6 +41,7 @@ Execute only in root of the project
 | `make phpstan`     | Runs PHPStan.                                                                          |
 | `make diff`        | Creates ORM migration.                                                                 |
 | `make migrate`     | Migrates to latest migration.                                                          |
+| `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
 
 ## Design:
 

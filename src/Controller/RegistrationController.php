@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\User;
 use ClownMeister\BohemiaApi\Form\RegistrationFormType;
-use ClownMeister\BohemiaApi\Repository\UserRepository;
 use ClownMeister\BohemiaApi\Security\EmailVerifier;
+use ClownMeister\BohemiaApi\Security\UsernameGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,16 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+final class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
-
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(private EmailVerifier $emailVerifier, private UsernameGenerator $usernameGenerator)
     {
-        $this->emailVerifier = $emailVerifier;
     }
 
     #[Route('/register', name: 'app_register')]
@@ -42,6 +38,8 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setUsername($this->usernameGenerator->generate($user));
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -50,43 +48,14 @@ class RegistrationController extends AbstractController
                     ->from(new Address('mailer@api.bohemia.com', 'Mailer'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('email/confirmation_email.html.twig')
             );
 
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('app_register_success');
         }
 
         return $this->render('pages/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
-    }
-
-    #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository
-    ): Response {
-        $id = $request->get('id');
-
-        if (null === $id) {
-            return $this->redirectToRoute('app_register');
-        }
-
-        $user = $userRepository->find($id);
-
-        if (null === $user) {
-            return $this->redirectToRoute('app_register');
-        }
-
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
-            return $this->redirectToRoute('app_register');
-        }
-
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('dashboard');
     }
 }

@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Entity;
 
 use ClownMeister\BohemiaApi\Repository\CommentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\UuidV4;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  */
-class Comment
+final class Comment
 {
     /**
      * @ORM\Id
@@ -18,7 +19,7 @@ class Comment
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
-    private UuidV4 $id;
+    private string $id;
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
@@ -31,9 +32,9 @@ class Comment
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\OneToMany(targetEntity="ClownMeister\BohemiaApi\Entity\User",mappedBy="id")
      */
-    private UuidV4 $author_id;
+    private string $author_id;
     /**
-     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="date_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $created_at;
     /**
@@ -41,26 +42,31 @@ class Comment
      */
     private DateTimeImmutable $edited_at;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private bool $archived;
+    private bool $archived = false;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private bool $deleted;
+    private bool $deleted = false;
+
+    public function __construct()
+    {
+        $this->created_at = new DateTimeImmutable();
+    }
 
     /**
-     * @return UuidV4
+     * @return string
      */
-    public function getId(): UuidV4
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param UuidV4 $id
+     * @param string $id
      */
-    public function setId(UuidV4 $id): void
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
@@ -98,35 +104,19 @@ class Comment
     }
 
     /**
-     * @return UuidV4
+     * @return string
      */
-    public function getAuthorId(): UuidV4
+    public function getAuthorId(): string
     {
         return $this->author_id;
     }
 
     /**
-     * @param UuidV4 $author_id
+     * @param string $author_id
      */
-    public function setAuthorId(UuidV4 $author_id): void
+    public function setAuthorId(string $author_id): void
     {
         $this->author_id = $author_id;
-    }
-
-    /**
-     * @return DateTimeImmutable
-     */
-    public function getCreatedAt(): DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * @param DateTimeImmutable $created_at
-     */
-    public function setCreatedAt(DateTimeImmutable $created_at): void
-    {
-        $this->created_at = $created_at;
     }
 
     /**

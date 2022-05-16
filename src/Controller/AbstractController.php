@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as SymfonyAbstractController;

@@ -13,7 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DashboardController extends AbstractDashboardController
+final class DashboardController extends AbstractDashboardController
 {
     #[Route('/', name: 'dashboard')]
     public function index(): Response

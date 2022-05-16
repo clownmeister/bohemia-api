@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Form;
 
 use ClownMeister\BohemiaApi\Entity\User;
@@ -13,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+final class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -43,10 +45,32 @@ class RegistrationFormType extends AbstractType
                 'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('firstname', TextType::class, [
-                'attr' => ['autocomplete' => 'given-name']
+                'attr' => ['autocomplete' => 'given-name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a firstname',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Your firstname should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 64,
+                    ]),
+                ]
             ])->setRequired(true)
             ->add('lastname', TextType::class, [
-                'attr' => ['autocomplete' => 'family-name']
+                'attr' => ['autocomplete' => 'family-name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a lastname',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Your lastname should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 64,
+                    ]),
+                ],
             ])->setRequired(true);
     }
 

@@ -39,6 +39,7 @@ services:
         environment:
             XDEBUG_CONFIG: "client_host=${XDEBUG_REMOTE_HOST}"
             PHP_IDE_CONFIG: "serverName={$APP_HOST}"
+            MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN}
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
             DB_DATABASE: ${DB_DATABASE}

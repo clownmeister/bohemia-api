@@ -3,6 +3,7 @@
 var
 vendor
 public/build/*
+public/bundles/*
 node_modules
 
 #Symfony

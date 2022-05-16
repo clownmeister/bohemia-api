@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
 
@@ -10,7 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PostCrudController extends AbstractCrudController
+final class PostCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
@@ -27,6 +28,7 @@ class PostCrudController extends AbstractCrudController
     public function createEntity(string $entityFqcn)
     {
         $user = $this->getUser();
+        //TODO: get user from auto-wire. Class should match afterwards
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }

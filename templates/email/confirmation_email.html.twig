@@ -192,7 +192,8 @@
                                                         <td style="padding-right: 0px;padding-left: 0px;"
                                                             align="center">
 
-                                                            <img align="center" border="0" src="images/bohemia_logo.png"
+                                                            <img align="center" border="0"
+                                                                 src="{{ email.image('@email/bohemia_logo.png') }}"
                                                                  alt="" title=""
                                                                  style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 512px;"
                                                                  width="512" class="v-src-width v-src-max-width"/>
@@ -251,7 +252,8 @@
                                                         <td style="padding-right: 0px;padding-left: 0px;"
                                                             align="center">
 
-                                                            <img align="center" border="0" src="images/tick.png"
+                                                            <img align="center" border="0"
+                                                                 src="{{ email.image('@email/tick.png') }}"
                                                                  alt="Tick Icon" title="Tick Icon"
                                                                  style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 14%;max-width: 81.2px;"
                                                                  width="81.2" class="v-src-width v-src-max-width"/>
@@ -292,7 +294,10 @@
 
                                                 <div style="color: #444444; line-height: 170%; text-align: center; word-wrap: break-word;">
                                                     <p style="font-size: 14px; line-height: 170%;"><span
-                                                                style="font-size: 16px; line-height: 27.2px;">Please <strong>click this link</strong> now In order to verify your email.</span>
+                                                                style="font-size: 16px; line-height: 27.2px;">Your new username is <strong>{{ username }}</strong>.</span>
+                                                    </p>
+                                                    <p style="font-size: 14px; line-height: 170%;"><span
+                                                                style="font-size: 16px; line-height: 27.2px;">Please <strong>click this link below</strong> now In order to verify your email.</span>
                                                     </p>
                                                     <p style="font-size: 14px; line-height: 170%;"><span
                                                                 style="font-size: 16px; line-height: 27.2px;">This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}</span>
@@ -573,7 +578,8 @@
                                                                     style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
                                                                     <a href="https://facebook.com/" title="Facebook"
                                                                        target="_blank">
-                                                                        <img src="images/facebook.png" alt="Facebook"
+                                                                        <img src="{{ email.image('@email/facebook.png') }}"
+                                                                             alt="Facebook"
                                                                              title="Facebook" width="32"
                                                                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
                                                                     </a>
@@ -595,7 +601,8 @@
                                                                     style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
                                                                     <a href="https://twitter.com/" title="Twitter"
                                                                        target="_blank">
-                                                                        <img src="images/twitter.png" alt="Twitter"
+                                                                        <img src="{{ email.image('@email/twitter.png') }}"
+                                                                             alt="Twitter"
                                                                              title="Twitter" width="32"
                                                                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
                                                                     </a>
@@ -617,7 +624,8 @@
                                                                     style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
                                                                     <a href="https://instagram.com/" title="Instagram"
                                                                        target="_blank">
-                                                                        <img src="images/instagram.png" alt="Instagram"
+                                                                        <img src="{{ email.image('@email/instagram.png') }}"
+                                                                             alt="Instagram"
                                                                              title="Instagram" width="32"
                                                                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
                                                                     </a>
@@ -639,7 +647,8 @@
                                                                     style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
                                                                     <a href="https://linkedin.com/" title="LinkedIn"
                                                                        target="_blank">
-                                                                        <img src="images/linkedin.png" alt="LinkedIn"
+                                                                        <img src="{{ email.image('@email/linkedin.png') }}"
+                                                                             alt="LinkedIn"
                                                                              title="LinkedIn" width="32"
                                                                              style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
                                                                     </a>

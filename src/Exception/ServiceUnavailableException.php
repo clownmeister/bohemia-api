@@ -7,9 +7,10 @@ namespace ClownMeister\BohemiaApi\Exception;
 
 use Throwable;
 
-final class InvalidUserTypeException extends RuntimeException
+final class ServiceUnavailableException extends RuntimeException
 {
-    public function __construct(string $message = self::INVALID_USER_TYPE, int $code = self::HTTP_INTERNAL_SERVER_ERROR,
+    public function __construct(string $message = self::SERVICE_UNAVAILABLE,
+        int $code = self::HTTP_INTERNAL_SERVER_ERROR,
         ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);

@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\Role;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class RoleCrudController extends AbstractCrudController
+final class RoleCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

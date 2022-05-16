@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Repository;
 
 use ClownMeister\BohemiaApi\Entity\Role;
@@ -14,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Role[]    findAll()
  * @method Role[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RoleRepository extends ServiceEntityRepository
+final class RoleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -29,38 +31,4 @@ class RoleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function remove(Role $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return Role[] Returns an array of Role objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Role
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
