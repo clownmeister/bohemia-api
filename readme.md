@@ -62,6 +62,9 @@ Execute only in root of the project
 | `make phpstan`     | Runs PHPStan.                                                                          |
 | `make diff`        | Creates ORM migration.                                                                 |
 | `make migrate`     | Migrates to latest migration.                                                          |
+| `make migration`   | Creates blank migration.                                                               |
+| `make drop`        | Drops db and clears migration history.                                                 |
+| `make validate`    | Validates db schema against mapper.                                                    |
 | `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
 
 ## Dev notes & todo:

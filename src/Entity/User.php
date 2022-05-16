@@ -36,10 +36,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $displayName;
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
     private ?string $phone;
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -156,22 +152,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    /**
-     * @param string|null $displayName
-     */
-    public function setDisplayName(?string $displayName): void
-    {
-        $this->displayName = $displayName;
     }
 
     /**

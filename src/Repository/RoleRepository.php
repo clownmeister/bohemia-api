@@ -31,4 +31,9 @@ final class RoleRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function getChoices(): array
+    {
+        return array_map(fn(Role $role): array => [$role->getName() => $role->getId()], $this->findAll());
+    }
 }

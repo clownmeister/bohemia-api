@@ -34,7 +34,7 @@ final class Comment
      */
     private string $author_id;
     /**
-     * @ORM\Column(type="date_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $created_at;
     /**

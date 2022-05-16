@@ -98,9 +98,18 @@ migrate:
 	@echo "\e[103;30m******************************         Migrating          ******************************\e[0m\n"
 	$(PHP) "php bin/console --no-interaction doctrine:migrations:migrate"
 
+migration:
+	@echo "\e[103;30m******************************         Creating blank migration          ******************************\e[0m\n"
+	$(PHP) "php bin/console --no-interaction doctrine:migrations:generate"
+
 drop:
 	@echo "\e[103;30m******************************         Dropping db          ******************************\e[0m\n"
 	$(PHP) "php bin/console doctrine:schema:drop --force"
+	$(PHP) "php bin/console doctrine:query:sql \"TRUNCATE doctrine_migration_versions\""
+
+validate:
+	@echo "\e[103;30m******************************         Validating db          ******************************\e[0m\n"
+	$(PHP) "php bin/console doctrine:schema:validate"
 
 send-mail:
 	$(PHP) "php bin/console messenger:consume async -vv"
