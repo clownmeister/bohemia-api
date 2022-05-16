@@ -20,6 +20,12 @@
 * Access **Mailhog** at <http://api.bohemia.docker:82>
 * Access **Status** at <http://api.bohemia.docker/status>
 
+Login to backoffice with default user:
+
+| User  | Pass   |
+|-------|--------|
+| admin | 123456 |
+
 ## Commands:
 
 Execute only in root of the project
@@ -43,7 +49,7 @@ Execute only in root of the project
 | `make migrate`     | Migrates to latest migration.                                                          |
 | `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
 
-## Design:
+## Dev notes & todo:
 
 ### Features:
 
@@ -51,14 +57,13 @@ Execute only in root of the project
 
 ### Design
 
-* Api
-  * GET/POST:/api/v1/session/new (Login)
+* Api (tba - wip)
+  * GET/POST:/api/v1/session/new (sso/auth?)
   * POST:/api/v1/session (Login)
   * DELETE:/api/v1/session (Logout)
   * GET:/api/v1/users (get user data)
   * GET:/api/v1/posts (get post list)
   * GET:/api/v1/posts/:postId (get post)
-  * DELETE:/api/v1/posts/:postId (delete post)
 * Backend
   * Login page
   * User edit/create/enable/disable (create surname + firstname abbreviation)
@@ -79,9 +84,6 @@ Execute only in root of the project
 * user:remove
 * user:enable
 * user:disable
-* permission:view
-* permission:add
-* permission:remove
 * role:view
 * role:add
 * role:remove
@@ -98,6 +100,7 @@ Execute only in root of the project
 * comment:add
 * post:add
 * post:publish
+* post:archive
 
 #### Admin
 
@@ -106,6 +109,7 @@ Execute only in root of the project
 * comment:restore
 * post:edit
 * post:add
+* post:archive
 * post:remove
 * post:publish
 * post:restore
@@ -113,9 +117,6 @@ Execute only in root of the project
 * user:remove
 * user:enable
 * user:disable
-* permission:view
-* permission:add
-* permission:remove
 * role:view
 * role:add
 * role:remove
