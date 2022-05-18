@@ -18,7 +18,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @method User loadUserByIdentifier(string $identifier)
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -54,7 +53,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         $this->add($user, true);
     }
 
-    public function loadUserByUsername(string $username): User
+    public function loadUserByIdentifier(string $identifier): ?User
     {
         try {
             $user = $this->getEntityManager()->createQueryBuilder()
@@ -62,7 +61,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
                 ->from('App:Entity\User', 'u')
                 ->where('u.username = :username')
                 ->getQuery()
-                ->setParameter('username', $username)
+                ->setParameter('username', $identifier)
                 ->getOneOrNullResult();
         } catch (NonUniqueResultException $exception) {
             throw new DuplicateUserException(previous: $exception);
@@ -71,24 +70,12 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }
-        $user->setRoles(array_merge($user->getRoles(), $this->getDefaultRoles()));
 
         return $user;
     }
 
-    private function getDefaultRoles(): array
+    public function loadUserByUsername(string $username): User
     {
-        $result = [];
-        $items = $this->getEntityManager()->createQueryBuilder()
-            ->select('r')
-            ->from('App:Entity\Role', 'r')
-            ->where('r.isDefault = 1')
-            ->getQuery()
-            ->getResult();
-        foreach ($items as $role) {
-            $result[] = $role->getName();
-        }
-
-        return $result;
+        return $this->loadUserByIdentifier($username);
     }
 }
