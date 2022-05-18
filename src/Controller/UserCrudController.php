@@ -30,7 +30,8 @@ final class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideWhenCreating()
-                ->setDisabled(),
+                ->setDisabled()
+                ->hideOnIndex(),
             TextField::new('username')
                 ->hideWhenCreating()
                 ->setDisabled(),
@@ -43,24 +44,31 @@ final class UserCrudController extends AbstractCrudController
             TextField::new('password')
                 ->hideOnDetail()
                 ->setRequired(true)
-                ->setDisabled(),
+                ->setDisabled()
+                ->hideOnIndex(),
             ChoiceField::new('roles')
                 ->allowMultipleChoices()
                 ->autocomplete()
                 ->setChoices($this->roleRepository->getChoices())
                 ->renderAsBadges(),
             TelephoneField::new('phone')
-                ->setRequired(false),
+                ->setRequired(false)
+                ->hideOnIndex(),
             CountryField::new('country')
-                ->setRequired(false),
+                ->setRequired(false)
+                ->hideOnIndex(),
             TextField::new('state')
-                ->setRequired(false),
+                ->setRequired(false)
+                ->hideOnIndex(),
             TextField::new('city')
-                ->setRequired(false),
+                ->setRequired(false)
+                ->hideOnIndex(),
             TextField::new('street')
-                ->setRequired(false),
+                ->setRequired(false)
+                ->hideOnIndex(),
             TextField::new('zip')
                 ->setRequired(false)
+                ->hideOnIndex()
         ];
     }
 }

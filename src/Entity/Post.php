@@ -7,10 +7,12 @@ namespace ClownMeister\BohemiaApi\Entity;
 use ClownMeister\BohemiaApi\Repository\PostRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
+#[UniqueEntity(fields: ['slug'], message: 'Duplicate slug, please change title.')]
 final class Post
 {
     /**
@@ -27,12 +29,17 @@ final class Post
     private string $title;
 
     /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private string $slug = '';
+
+    /**
      * @ORM\Column(type="text", length=65535, nullable=true)
      */
     private string $html;
 
     /**
-     * @ORM\Column(type="ulid", unique=true)
+     * @ORM\Column(type="ulid")
      * @ORM\OneToMany(targetEntity="ClownMeister\BohemiaApi\Entity\User",mappedBy="id")
      */
     private string $author_id;
@@ -41,7 +48,6 @@ final class Post
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $created_at;
-
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
@@ -62,6 +68,38 @@ final class Post
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param DateTimeImmutable $created_at
+     */
+    public function setCreatedAt(DateTimeImmutable $created_at): void
+    {
+        $this->created_at = $created_at;
     }
 
     /**

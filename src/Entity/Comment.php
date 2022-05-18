@@ -29,7 +29,7 @@ final class Comment
      */
     private string $text;
     /**
-     * @ORM\Column(type="ulid", unique=true)
+     * @ORM\Column(type="ulid")
      * @ORM\OneToMany(targetEntity="ClownMeister\BohemiaApi\Entity\User",mappedBy="id")
      */
     private string $author_id;
