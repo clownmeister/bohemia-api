@@ -5,9 +5,10 @@ security:
             algorithm: 'bcrypt'
             cost: 15
     providers:
-        app_user_provider:
+        users:
             entity:
                 class: ClownMeister\BohemiaApi\Entity\User
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -25,7 +26,6 @@ security:
             jwt: ~
         admin:
             pattern: ^/
-            anonymous: false
             form_login:
                 login_path: app_login
                 check_path: app_login
@@ -38,9 +38,8 @@ security:
         - { path: /register,       roles: PUBLIC_ACCESS }
         - { path: /registration-success,       roles: PUBLIC_ACCESS }
         - { path: /verify/email,       roles: PUBLIC_ACCESS }
-        - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
-        - { path: ~/,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ~/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
