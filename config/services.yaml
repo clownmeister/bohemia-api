@@ -12,6 +12,6 @@ services:
       - '../src/Entity/'
       - '../src/Kernel.php'
 
-#  security.role_hierarchy:
-#    class: ClownMeister\BohemiaApi\Security\RoleHierarchy
-#    public: false
+  security.role_hierarchy:
+    class: ClownMeister\BohemiaApi\Security\RoleHierarchy
+    public: false

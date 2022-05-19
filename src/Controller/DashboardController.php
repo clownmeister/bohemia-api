@@ -16,7 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class DashboardController extends AbstractDashboardController
 {
-    #[Route('/', name: 'dashboard')]
+    public function __construct(private \ClownMeister\BohemiaApi\Security\RoleHierarchy $hierarchy)
+    {
+    }
+
+    #[Route('/', name: 'app_dashboard')]
     public function index(): Response
     {
         return $this->render('pages/dashboard.html.twig');
@@ -31,10 +35,16 @@ final class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Bohemia Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Posts', 'fas fa-file-lines', Post::class);
-        yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Roles', 'fas fa-list', Role::class);
-        yield MenuItem::linkToCrud('Role Hierarchy', 'fas fa-sitemap', RoleHierarchy::class);
+        yield MenuItem::linkToCrud('Posts', 'fas fa-file-lines', Post::class)
+            ->setPermission('ROLE_POST_VIEW');
+        yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class)
+            ->setPermission('ROLE_USER_VIEW');
+        yield MenuItem::linkToCrud('Roles', 'fas fa-list', Role::class)
+            ->setPermission('ROLE_ROLE_VIEW');
+        yield MenuItem::linkToCrud('Role Hierarchy', 'fas fa-sitemap', RoleHierarchy::class)
+            ->setPermission('ROLE_HIERARCHY_VIEW');
+        yield MenuItem::linkToRoute('Trash bin', 'fas fa-trash', 'app_trash')
+            ->setPermission('ROLE_TRASH_VIEW');
         yield MenuItem::linkToUrl('Logout', 'fas fa-arrow-right-from-bracket', '/logout');
     }
 }

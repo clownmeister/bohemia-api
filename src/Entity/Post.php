@@ -15,23 +15,20 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Post
 {
     /**
+     * @ORM\Column(type="string", length=64)
+     */
+    public string $slug;
+    /**
      * @ORM\Id
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
      */
     private string $id;
-
     /**
      * @ORM\Column(type="string", length=64)
      */
     private string $title;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    public string $slug;
-
     /**
      * @ORM\Column(type="text", length=65535, nullable=true)
      */
@@ -44,7 +41,7 @@ class Post
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private DateTimeImmutable $editedAt;
+    private ?DateTimeImmutable $editedAt = null;
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
@@ -107,17 +104,17 @@ class Post
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
-    public function getEditedAt(): DateTimeImmutable
+    public function getEditedAt(): ?DateTimeImmutable
     {
         return $this->editedAt;
     }
 
     /**
-     * @param DateTimeImmutable $editedAt
+     * @param DateTimeImmutable|null $editedAt
      */
-    public function setEditedAt(DateTimeImmutable $editedAt): void
+    public function setEditedAt(?DateTimeImmutable $editedAt): void
     {
         $this->editedAt = $editedAt;
     }

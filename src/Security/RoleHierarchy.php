@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Security;
 
+use ClownMeister\BohemiaApi\Entity\Role;
+use ClownMeister\BohemiaApi\Entity\RoleHierarchy as RoleHierarchyEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchy as SymfonyRoleHierarchy;
 
@@ -17,21 +19,23 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
 
     private function buildRolesHierarchy(): array
     {
-        return [];
+        $result = [];
+        $rows = $this->entityManager->createQueryBuilder()
+            ->select('rh')
+            ->from('App:Entity\RoleHierarchy', 'rh')
+            ->leftJoin('rh.parentRole', 'pr')
+            ->innerJoin('rh.roleCollection', 'rc')
+            ->getQuery()
+            ->getResult();
 
-//        $roles = $this->entityManager->createQueryBuilder()
-//            ->select('rh')
-//            ->from('App:Entity\RoleHierarchy', 'rh')
-//            ->getQuery()
-//            ->getResult();
+        foreach ($rows as $roleHierarchy) {
+            /** @var RoleHierarchyEntity $roleHierarchy */
+            $result[$roleHierarchy->getParentRole()->getName()] = array_map(
+                fn(Role $role): string => $role->getName(),
+                $roleHierarchy->getRoleCollection()->toArray()
+            );
+        }
 
-//        $role = $roles[0];
-//        dump($role);
-//        dump($roles);die;
-//        if (!$role instanceof RoleHierarchyEntity) {
-//            throw new InvalidEntityTypeException();
-//        }
-
-
+        return $result;
     }
 }

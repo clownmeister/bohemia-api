@@ -117,13 +117,10 @@ Execute only in root of the project
   * View admin roles section
 * ROLE_ROLE_ADD
 * ROLE_ROLE_REMOVE
+* ROLE_HIERARCHY_VIEW
+* ROLE_HIERARCHY_ADD
+* ROLE_HIERARCHY_REMOVE
 
 ### Tech-debt & notes
 
-* Repository remove "remove" method
-* Link tables missing
-* Move unnecessary data out of User table
-* Weird entity encapsulation. No time to investigate.
-* No time for SOLID :(
-* No email editor. Used https://dashboard.unlayer.com/ for POC.
 * Edit post html white text (only dark theme). Need to include css entrypoint in CRUD controllers.

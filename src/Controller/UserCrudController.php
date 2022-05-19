@@ -33,6 +33,12 @@ final class UserCrudController extends AbstractCrudController
         private UsernameGenerator $usernameGenerator
     ) {
     }
+//
+//    public function configureCrud(Crud $crud): Crud
+//    {
+//        return $crud
+//            ->setEntityPermission('ROLE_USER_EDIT');
+//    }
 
     public static function getEntityFqcn(): string
     {
@@ -53,8 +59,8 @@ final class UserCrudController extends AbstractCrudController
             ->linkToCrudAction('resetPassword');
 
         $actions->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
-            return $action->displayIf(function (User $user) {
-                return $user->getUserIdentifier() !== self::ADMIN_IDENTIFIER;
+            return $action->displayIf(function (?User $user) {
+                return $this->isGranted('ROLE_USER_REMOVE') && ($user?->getUserIdentifier() !== self::ADMIN_IDENTIFIER);
             });
         });
 

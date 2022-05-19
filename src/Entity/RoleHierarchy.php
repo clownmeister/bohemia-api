@@ -28,6 +28,7 @@ class RoleHierarchy
     /**
      * @var Collection<int, Role>
      * @ORM\ManyToMany(targetEntity=Role::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private Collection $roleCollection;
 

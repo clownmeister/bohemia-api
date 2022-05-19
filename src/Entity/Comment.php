@@ -35,7 +35,7 @@ class Comment
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private DateTimeImmutable $editedAt;
+    private ?DateTimeImmutable $editedAt = null;
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
@@ -110,17 +110,17 @@ class Comment
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
-    public function getEditedAt(): DateTimeImmutable
+    public function getEditedAt(): ?DateTimeImmutable
     {
         return $this->editedAt;
     }
 
     /**
-     * @param DateTimeImmutable $editedAt
+     * @param DateTimeImmutable|null $editedAt
      */
-    public function setEditedAt(DateTimeImmutable $editedAt): void
+    public function setEditedAt(?DateTimeImmutable $editedAt): void
     {
         $this->editedAt = $editedAt;
     }
@@ -139,6 +139,14 @@ class Comment
     public function setArchived(bool $archived): void
     {
         $this->archived = $archived;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 
     /**

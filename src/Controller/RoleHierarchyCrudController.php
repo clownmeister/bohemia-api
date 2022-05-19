@@ -6,7 +6,7 @@ use ClownMeister\BohemiaApi\Entity\RoleHierarchy;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
-class RoleHierarchyCrudController extends AbstractCrudController
+final class RoleHierarchyCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {

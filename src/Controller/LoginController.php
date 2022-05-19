@@ -15,7 +15,7 @@ final class LoginController extends AbstractController
     }
 
     #[Route('/login', name: 'app_login')]
-    public function register(): Response
+    public function index(): Response
     {
         return $this->render('pages/login.html.twig');
     }

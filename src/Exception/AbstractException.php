@@ -18,6 +18,7 @@ abstract class AbstractException extends Exception
 
     protected const INVALID_USER_TYPE = 'INVALID_USER_TYPE';
     protected const INVALID_ENTITY_TYPE = 'INVALID_ENTITY_TYPE';
+    protected const FACTORY_INVALID_ENTITY_TYPE_SUPPLIED = 'FACTORY_INVALID_ENTITY_TYPE_SUPPLIED';
     protected const DUPLICATE_USER = 'DUPLICATE_USER';
 
     protected const MAIL_SERVICE_UNAVAILABLE = 'MAIL_SERVICE_UNAVAILABLE';
