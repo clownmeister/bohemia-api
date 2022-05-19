@@ -13,8 +13,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -79,7 +79,7 @@ final class UserCrudController extends AbstractCrudController
                 ));
         }
 
-        parent::persistEntity($entityManager, $entityInstance);
+        parent::persistEntity($entityManager, $user);
     }
 
     public function configureFields(string $pageName): iterable
@@ -102,11 +102,9 @@ final class UserCrudController extends AbstractCrudController
             TextField::new('password')
                 ->setRequired(true)
                 ->onlyWhenCreating(),
-            ChoiceField::new('roles')
-                ->allowMultipleChoices()
-                ->autocomplete()
-                ->setChoices($this->roleRepository->getChoices())
-                ->renderAsBadges(),
+            AssociationField::new('roleCollection', 'Roles')
+                ->setFormTypeOption('choice_label', 'name')
+                ->setFormTypeOption('by_reference', false),
             TelephoneField::new('phone')
                 ->setRequired(false)
                 ->hideOnIndex(),

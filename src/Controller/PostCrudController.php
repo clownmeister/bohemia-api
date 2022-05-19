@@ -43,7 +43,7 @@ final class PostCrudController extends AbstractCrudController
         }
 
         $post = new Post();
-        $post->setAuthorId($user->getId());
+        $post->setCreatedBy($user);
         return $post;
     }
 

@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method RoleHierarchy[]    findAll()
  * @method RoleHierarchy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RoleHierarchyRepository extends ServiceEntityRepository
+final class RoleHierarchyRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -38,29 +38,4 @@ class RoleHierarchyRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return RoleHierarchy[] Returns an array of RoleHierarchy objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?RoleHierarchy
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -23,4 +23,6 @@ abstract class AbstractException extends Exception
     protected const MAIL_SERVICE_UNAVAILABLE = 'MAIL_SERVICE_UNAVAILABLE';
 
     protected const SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE';
+
+    protected const SECURITY_EXCEPTION = 'SECURITY_EXCEPTION';
 }

@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Entity;
 
-use ClownMeister\BohemiaApi\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository")
  */
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-final class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -64,12 +65,7 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private string $username;
-    /**
-     * @var string[]
-     * @ORM\Column(type="json")
-     * @ORM\ManyToMany(targetEntity="ClownMeister\BohemiaApi\Entity\Role", mappedBy="name")
-     */
-    private array $roles = [];
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -84,9 +80,23 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private DateTimeImmutable $createdAt;
 
+    /**
+     * @var Collection<int, Post>
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="createdBy")
+     */
+    private Collection $postCollection;
+
+    /**
+     * @var Collection<int, Role>
+     * @ORM\ManyToMany(targetEntity=Role::class)
+     */
+    private Collection $roleCollection;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->postCollection = new ArrayCollection();
+        $this->roleCollection = new ArrayCollection();
     }
 
     /**
@@ -276,26 +286,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @param string[] $roles
-     */
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
@@ -345,5 +335,83 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(?bool $isVerified): void
     {
         $this->isVerified = $isVerified;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPostCollection(): Collection
+    {
+        return $this->postCollection;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->postCollection->contains($post)) {
+            $this->postCollection[] = $post;
+            $post->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->postCollection->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getCreatedBy() === $this) {
+                $post->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection<int, Role> $roleCollection
+     */
+    public function setRoleCollection(Collection $roleCollection): void
+    {
+        $this->roleCollection = $roleCollection;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = [];
+        foreach ($this->roleCollection as $role) {
+            $roles[] = $role->getName();
+        }
+
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRoleCollection(): Collection
+    {
+        return $this->roleCollection;
+    }
+
+    public function addRole(Role $roleCollection): self
+    {
+        if (!$this->roleCollection->contains($roleCollection)) {
+            $this->roleCollection[] = $roleCollection;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $roleCollection): self
+    {
+        $this->roleCollection->removeElement($roleCollection);
+
+        return $this;
     }
 }
