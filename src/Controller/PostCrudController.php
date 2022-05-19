@@ -85,7 +85,7 @@ final class PostCrudController extends AbstractCrudController
             TextField::new('title'),
             TextField::new('slug')
                 ->hideWhenCreating(),
-            CKEditorField::new('html'),
+            CKEditorField::new('html')->setTemplatePath('components/easy_admin_text_editor.html.twig')
         ];
     }
 }

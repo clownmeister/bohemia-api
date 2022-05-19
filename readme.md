@@ -126,4 +126,4 @@ Execute only in root of the project
 * Weird entity encapsulation. No time to investigate.
 * No time for SOLID :(
 * No email editor. Used https://dashboard.unlayer.com/ for POC.
-* Edit post html white text. Need to include css entrypoint in CRUD controllers.
+* Edit post html white text (only dark theme). Need to include css entrypoint in CRUD controllers.

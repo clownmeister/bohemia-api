@@ -24,6 +24,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserCrudController extends AbstractCrudController
 {
+    private const ADMIN_IDENTIFIER = 'admin';
     private bool $isNewUser = false;
 
     public function __construct(
@@ -50,6 +51,12 @@ final class UserCrudController extends AbstractCrudController
         $setNewPasswordAction = Action::new('Reset password')
             ->setIcon('fas fa-lock')
             ->linkToCrudAction('resetPassword');
+
+        $actions->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+            return $action->displayIf(function (User $user) {
+                return $user->getUserIdentifier() !== self::ADMIN_IDENTIFIER;
+            });
+        });
 
         $actions->add(Crud::PAGE_INDEX, $setNewPasswordAction);
 
