@@ -8,9 +8,11 @@ use ClownMeister\BohemiaApi\Entity\User;
 use ClownMeister\BohemiaApi\Exception\InvalidEntityTypeException;
 use ClownMeister\BohemiaApi\Exception\InvalidUserTypeException;
 use ClownMeister\BohemiaApi\Field\CKEditorField;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -36,7 +38,6 @@ final class PostCrudController extends AbstractCrudController
     public function createEntity(string $entityFqcn)
     {
         $user = $this->getUser();
-        //TODO: get user from auto-wire. Class should match afterwards
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }
@@ -54,6 +55,7 @@ final class PostCrudController extends AbstractCrudController
         }
 
         $post->setSlug($this->slugger->slug($post->getSlug())->toString());
+        $post->setEditedAt(new DateTimeImmutable());
 
         parent::updateEntity($entityManager, $post);
     }
@@ -65,7 +67,7 @@ final class PostCrudController extends AbstractCrudController
             throw new InvalidEntityTypeException();
         }
 
-        if ($post->getSlug() === '') {
+        if (!isset($post->slug)) {
             $post->setSlug($this->slugger->slug($post->getTitle())->toString());
         }
 
@@ -79,10 +81,11 @@ final class PostCrudController extends AbstractCrudController
                 ->setDisabled()
                 ->hideWhenCreating()
                 ->hideOnIndex(),
+            BooleanField::new('published'),
             TextField::new('title'),
             TextField::new('slug')
                 ->hideWhenCreating(),
-            CKEditorField::new('html')
+            CKEditorField::new('html'),
         ];
     }
 }

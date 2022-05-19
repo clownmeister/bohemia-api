@@ -31,7 +31,7 @@ final class Post
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private string $slug = '';
+    public string $slug;
 
     /**
      * @ORM\Column(type="text", length=65535, nullable=true)

@@ -6,6 +6,7 @@ namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\Post;
 use ClownMeister\BohemiaApi\Entity\Role;
+use ClownMeister\BohemiaApi\Entity\RoleHierarchy;
 use ClownMeister\BohemiaApi\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -33,6 +34,7 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Posts', 'fas fa-file-lines', Post::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Roles', 'fas fa-list', Role::class);
+        yield MenuItem::linkToCrud('Role Hierarchy', 'fas fa-sitemap', RoleHierarchy::class);
         yield MenuItem::linkToUrl('Logout', 'fas fa-arrow-right-from-bracket', '/logout');
     }
 }

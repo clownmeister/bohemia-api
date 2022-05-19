@@ -5,24 +5,74 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\User;
+use ClownMeister\BohemiaApi\Exception\InvalidEntityTypeException;
 use ClownMeister\BohemiaApi\Repository\RoleRepository;
+use ClownMeister\BohemiaApi\Security\UsernameGenerator;
+use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserCrudController extends AbstractCrudController
 {
-    public function __construct(private RoleRepository $roleRepository)
-    {
+    private bool $isNewUser = false;
+
+    public function __construct(
+        private RoleRepository $roleRepository,
+        private UserPasswordHasherInterface $hasher,
+        private UsernameGenerator $usernameGenerator
+    ) {
     }
 
     public static function getEntityFqcn(): string
     {
         return User::class;
+    }
+
+    public function createEntity(string $entityFqcn): User
+    {
+        $this->isNewUser = true;
+
+        return new User();
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $setNewPasswordAction = Action::new('Reset password')
+            ->setIcon('fas fa-lock')
+            ->linkToCrudAction('resetPassword');
+
+        $actions->add(Crud::PAGE_INDEX, $setNewPasswordAction);
+
+        return $actions;
+    }
+
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $user = $entityInstance;
+        if (!$user instanceof User) {
+            throw new InvalidEntityTypeException();
+        }
+
+        if ($this->isNewUser === true) {
+            $user->setUsername($this->usernameGenerator->generate($user));
+            $user->setPassword(
+                $this->hasher->hashPassword(
+                    $user,
+                    $user->getPassword()
+                ));
+        }
+
+        parent::persistEntity($entityManager, $entityInstance);
     }
 
     public function configureFields(string $pageName): iterable
@@ -35,6 +85,7 @@ final class UserCrudController extends AbstractCrudController
             TextField::new('username')
                 ->hideWhenCreating()
                 ->setDisabled(),
+            BooleanField::new('isVerified'),
             EmailField::new('email')
                 ->setRequired(true),
             TextField::new('firstname')
@@ -42,10 +93,8 @@ final class UserCrudController extends AbstractCrudController
             TextField::new('lastname')
                 ->setRequired(true),
             TextField::new('password')
-                ->hideOnDetail()
                 ->setRequired(true)
-                ->setDisabled()
-                ->hideOnIndex(),
+                ->onlyWhenCreating(),
             ChoiceField::new('roles')
                 ->allowMultipleChoices()
                 ->autocomplete()
