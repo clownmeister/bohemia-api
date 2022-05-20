@@ -15,9 +15,7 @@ final class StatusController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/status", name="app_status")
-     */
+    #[Route('/status', name: 'app_status')]
     public function index(): Response
     {
         try {

@@ -22,6 +22,7 @@ final class VerifyEmailController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository
     ): Response {
+        //TODO: move to handler
         $id = $request->get('id');
 
         if (null === $id) {

@@ -11,7 +11,7 @@ use ClownMeister\BohemiaApi\Repository\CommentRepository;
 use ClownMeister\BohemiaApi\Repository\PostRepository;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-final class GetTrashEntitiesHandler implements HandlerInterface
+final class GetTrashEntitiesHandler
 {
 
     public function __construct(

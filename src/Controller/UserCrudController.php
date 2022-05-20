@@ -33,12 +33,6 @@ final class UserCrudController extends AbstractCrudController
         private UsernameGenerator $usernameGenerator
     ) {
     }
-//
-//    public function configureCrud(Crud $crud): Crud
-//    {
-//        return $crud
-//            ->setEntityPermission('ROLE_USER_EDIT');
-//    }
 
     public static function getEntityFqcn(): string
     {
