@@ -48,9 +48,11 @@ final class UserCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $setNewPasswordAction = Action::new('Reset password')
-            ->setIcon('fas fa-lock')
-            ->linkToCrudAction('resetPassword');
+        //TODO: Reset pasword modal wip
+//        $setNewPasswordAction = Action::new('Reset password')
+//            ->setIcon('fas fa-lock')
+//            ->linkToCrudAction('resetPassword');
+//        $actions->add(Crud::PAGE_INDEX, $setNewPasswordAction);
 
         $actions->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
             return $action->displayIf(function (?User $user) {
@@ -58,7 +60,6 @@ final class UserCrudController extends AbstractCrudController
             });
         });
 
-        $actions->add(Crud::PAGE_INDEX, $setNewPasswordAction);
 
         return $actions;
     }
