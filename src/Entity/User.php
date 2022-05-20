@@ -81,12 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private DateTimeImmutable $createdAt;
 
     /**
-     * @var Collection<int, Post>
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="createdBy")
-     */
-    private Collection $postCollection;
-
-    /**
      * @var Collection<int, Role>
      * @ORM\ManyToMany(targetEntity=Role::class)
      */
@@ -95,7 +89,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
-        $this->postCollection = new ArrayCollection();
         $this->roleCollection = new ArrayCollection();
     }
 
@@ -335,36 +328,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(?bool $isVerified): void
     {
         $this->isVerified = $isVerified;
-    }
-
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPostCollection(): Collection
-    {
-        return $this->postCollection;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->postCollection->contains($post)) {
-            $this->postCollection[] = $post;
-            $post->setCreatedBy($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->postCollection->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getCreatedBy() === $this) {
-                $post->setCreatedBy(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

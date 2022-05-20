@@ -18,7 +18,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         login:
-            pattern: ^/api/login
+            pattern: ^/api/auth
             stateless: true
             json_login:
                 check_path: api_login_check
@@ -39,6 +39,7 @@ security:
     access_control:
         - { path: /api/login, roles: PUBLIC_ACCESS }
         - { path: /login,       roles: PUBLIC_ACCESS }
+        - { path: /status,       roles: PUBLIC_ACCESS }
         - { path: /register,       roles: PUBLIC_ACCESS }
         - { path: /registration-success,       roles: PUBLIC_ACCESS }
         - { path: /verify/email,       roles: PUBLIC_ACCESS }

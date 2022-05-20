@@ -19,7 +19,8 @@ final class StatusController extends AbstractController
     public function index(): Response
     {
         try {
-            $mysql = $this->entityManager->getConnection()->connect();
+            $mysql = $this->entityManager->getConnection()->isConnected() ||
+                $this->entityManager->getConnection()->connect();
         } catch (Exception $e) {
             $mysql = false;
         }

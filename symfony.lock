@@ -104,6 +104,9 @@
             "config/packages/fos_ckeditor.yaml"
         ]
     },
+    "justinrainbow/json-schema": {
+        "version": "5.2.12"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
