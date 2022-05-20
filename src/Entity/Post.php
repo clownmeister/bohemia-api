@@ -7,6 +7,7 @@ namespace ClownMeister\BohemiaApi\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\PostRepository")
@@ -16,6 +17,7 @@ class Post
 {
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("post")
      */
     public string $slug;
     /**
@@ -23,23 +25,28 @@ class Post
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
+     * @Groups("post")
      */
     private string $id;
     /**
      * @ORM\Column(type="string", length=64)
+     * @Groups("post")
      */
     private string $title;
     /**
      * @ORM\Column(type="text", length=65535, nullable=true)
+     * @Groups("post")
      */
     private string $html;
 
     /**
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     * @Groups("post")
      */
     private DateTimeImmutable $createdAt;
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups("post")
      */
     private ?DateTimeImmutable $editedAt = null;
     /**
@@ -56,13 +63,15 @@ class Post
     private bool $deleted = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="postCollection")
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("post")
      */
     private User $createdBy;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @Groups("post")
      */
     private User $editedBy;
 

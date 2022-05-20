@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository")
@@ -23,6 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
+     * @Groups("user_short")
      */
     private string $id;
     /**
@@ -63,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("user_short")
      */
     private string $username;
 

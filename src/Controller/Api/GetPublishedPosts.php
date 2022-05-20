@@ -47,7 +47,7 @@ final class GetPublishedPosts extends AbstractController
                 $page,
                 $limit,
                 count($posts)
-            ), self::ENCODE_TYPE_JSON),
+            ), self::ENCODE_TYPE_JSON, ['groups' => ['post', 'user_short']]),
             Response::HTTP_OK,
             [self::HEADER_CONTENT_TYPE => self::CONTENT_TYPE_APPLICATION_JSON]
         );

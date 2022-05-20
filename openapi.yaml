@@ -34,15 +34,42 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         '401':
           $ref: '#/components/responses/InvalidCredentialsError'
+  /api/v1/post:
+    get:
+      tags: [ Post ]
+      operationId: get_posts
+      description: Get published posts
+      requestBody:
+        $ref: '#/components/requestBodies/GetPostRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '401':
+          $ref: '#/components/responses/ExpiredJWTError'
 
 components:
   requestBodies:
+    GetPostRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetPostRequest'
     AuthRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/AuthRequest'
   responses:
+    GetPostResponse:
+      description: Posts response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetPostResponse'
     TokenResponse:
       description: Token response
       content:
@@ -76,10 +103,20 @@ components:
       description: Internal Server Error
     InvalidCredentialsError:
       description: Invalid credentials.
+    ExpiredJWTError:
+      description: Expired JWT token.
     Conflict:
       description: Confict
 
   schemas:
+    GetPostRequest:
+      properties:
+        page:
+          type: integer
+          example: 0
+        pageSize:
+          type: integer
+          example: 10
     AuthRequest:
       properties:
         username:
@@ -88,6 +125,48 @@ components:
         password:
           type: string
           example: 123456
+    GetPostResponse:
+      properties:
+        items:
+          type: array
+          items:
+            properties:
+              slug:
+                type: string
+                example: novinky-ze-sveta
+              id:
+                type: string
+                example: 01G3AKF9WKRRTT8TVMM5M1DNVY
+              title:
+                type: string
+                example: "Novinky ze světa"
+              html:
+                type: string
+                example: "<div>Html here</div>"
+              createdAt:
+                type: string
+                example: "2022-05-18T05:30:35+02:00"
+              editedAt:
+                type: string
+                example: "2022-05-18T05:30:35+02:00"
+              createdBy:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 7FQEZQAXB9CGM2J00000000000
+                  username:
+                    type: string
+                    example: admin
+        page:
+          type: integer
+          example: 0
+        pageSize:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 13
     TokenResponse:
       properties:
         token:

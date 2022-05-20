@@ -23,6 +23,6 @@ final class PostRegisterUser extends AbstractController
     #[Route('/user', name: 'api_user_register', methods: ['POST'])]
     public function index(Request $request): Response
     {
-
+        $data = $this->validateSchema($request->getContent(), __DIR__ . '/schema/user/register.json');
     }
 }

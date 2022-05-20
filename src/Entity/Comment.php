@@ -46,7 +46,7 @@ class Comment
     private bool $deleted = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="postCollection")
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private User $createdBy;

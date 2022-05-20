@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Dto\Response;
 
 use ClownMeister\BohemiaApi\Entity\Post;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 final class PublishedPostsResponseDto
 {
@@ -25,6 +26,7 @@ final class PublishedPostsResponseDto
 
     /**
      * @return Post[]
+     * @Groups("post")
      */
     public function getItems(): array
     {
@@ -33,6 +35,7 @@ final class PublishedPostsResponseDto
 
     /**
      * @return int
+     * @Groups("post")
      */
     public function getPage(): int
     {
@@ -41,6 +44,7 @@ final class PublishedPostsResponseDto
 
     /**
      * @return int
+     * @Groups("post")
      */
     public function getPageSize(): int
     {
@@ -49,6 +53,7 @@ final class PublishedPostsResponseDto
 
     /**
      * @return int
+     * @Groups("post")
      */
     public function getTotal(): int
     {
