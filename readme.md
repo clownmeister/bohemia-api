@@ -117,45 +117,10 @@ Execute only in root of the project
   * View admin roles section
 * ROLE_ROLE_ADD
 * ROLE_ROLE_REMOVE
-
-### Default roles & permissions:
-
-#### User (No access to backend)
-
-* comment:add
-
-#### Moderator
-
-* comment:add
-* post:add
-* post:publish
-* post:archive
-
-#### Admin
-
-* comment:remove
-* comment:add
-* comment:restore
-* post:edit
-* post:add
-* post:archive
-* post:remove
-* post:publish
-* post:restore
-* user:add
-* user:remove
-* user:enable
-* user:disable
-* role:view
-* role:add
-* role:remove
-* role:edit
+* ROLE_HIERARCHY_VIEW
+* ROLE_HIERARCHY_ADD
+* ROLE_HIERARCHY_REMOVE
 
 ### Tech-debt & notes
 
-* Repository remove "remove" method
-* Link tables missing
-* Move unnecessary data out of User table
-* Weird entity encapsulation. No time to investigate.
-* No time for SOLID :(
-* Emails need editor. Used https://dashboard.unlayer.com/ for POC.
+* Edit post html white text (only dark theme). Need to include css entrypoint in CRUD controllers.

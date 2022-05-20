@@ -1,0 +1,362 @@
+{
+  "info": {
+    "_postman_id": "9ce632e6-89f6-435e-9cf3-c5b9d2381f20",
+    "name": "BohemiaApi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16854038"
+  },
+  "item": [
+    {
+      "name": "Post",
+      "item": [
+        {
+          "name": "GetPosts",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"page\": 0,\r\n    \"pageSize\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{bohemiaApiHost}}/api/v1/post",
+              "host": [
+                "{{bohemiaApiHost}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "post"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GetPosts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"page\": 0,\r\n    \"pageSize\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bohemiaApiHost}}/api/v1/post",
+                  "host": [
+                    "{{bohemiaApiHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "post"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.19.8"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "XDEBUG_SESSION=PHPSTORM; path=/; SameSite=Lax"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 20 May 2022 02:25:26 GMT"
+                },
+                {
+                  "key": "X-Debug-Token",
+                  "value": "679e7e"
+                },
+                {
+                  "key": "X-Debug-Token-Link",
+                  "value": "http://api.bohemia.docker/_profiler/679e7e"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"items\": [\n        {\n            \"slug\": \"Malebna-naplavka-ozije-Prazskymi-vinarskymi-a-rybimi-slavnostmi\",\n            \"id\": \"01G3AKF9WKRRTT8TVMM5M1DNVY\",\n            \"title\": \"Malebná náplavka ožije Pražskými vinařskými a rybími slavnostmi\",\n            \"html\": \"<p><strong>O v&iacute;kendu 10. a 11. června 2022 bude Hořej&scaron;&iacute; n&aacute;břež&iacute; pražsk&eacute; N&aacute;plavky patřit v&scaron;em milovn&iacute;kům skvěl&yacute;ch v&iacute;n a ryb&iacute;ch specialit, a to nejen na tal&iacute;ři. Atmosf&eacute;ra centra Prahy, nejkvalitněj&scaron;&iacute; v&iacute;na od vinařů z&nbsp;česk&eacute; a moravsk&eacute; produkce, gastronomick&eacute; z&aacute;žitky z&nbsp;tradičně i netradičně připraven&yacute;ch ryb a doprovodn&yacute; program pro celou rodinu v&nbsp;pod&aacute;n&iacute; těch nejlep&scaron;&iacute;ch buskers, na to v&scaron;e se mohou n&aacute;v&scaron;těvn&iacute;ci tě&scaron;it. V&scaron;em př&iacute;choz&iacute;m se otevře i řeka Vltava a z&nbsp;jedn&eacute; strany na druhou budou jezdit a přev&aacute;žet z&aacute;jemce lodě a př&iacute;vozy.</strong></p>\\n                <p><strong><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2022/05/Image_fotografie-300x200.jpg\\\" style=\\\"float:left; margin-right:15px\\\" /></strong></p>\\n                <p>Malebn&aacute; sm&iacute;chovsk&aacute; n&aacute;plavka bude v&nbsp;p&aacute;tek 10. června od 13 hodin a v&nbsp;sobotu 11. června od 11 hodin patřit v&scaron;em gurm&aacute;nům. Na sv&eacute; si přijdou v&scaron;ichni, kteř&iacute; si o v&iacute;kendu chtěj&iacute; už&iacute;t zaj&iacute;mav&yacute; program v&nbsp;centru Prahy. A nebude chybět hudba a dobr&eacute; j&iacute;dlo i pit&iacute;. Cel&yacute; program doprovod&iacute; př&iacute;jemn&aacute; a stylov&aacute; hudba v&nbsp;podobě pouličn&iacute;ho uměn&iacute;, tzv. busking. &bdquo;<em>Pracujeme s tradic&iacute; a na&scaron;e slavnosti navazuj&iacute; na Pražsk&eacute; ryb&aacute;řsk&eacute; slavnosti. Kulin&aacute;řům a milovn&iacute;kům gastronomie nemus&iacute;m připom&iacute;nat, že k dobr&eacute; rybě patř&iacute; dobr&eacute; v&iacute;no. Na n&aacute;plavk&aacute;ch se tyto věci snoub&iacute; v jedinečnou harmonii chuťov&yacute;ch prožitků,&ldquo;</em>&nbsp;ř&iacute;k&aacute; dramaturg Pražsk&yacute;ch vinařsk&yacute;ch slavnost&iacute; Jiř&iacute; Vrti&scaron;.</p>\\n                <p><strong>V&nbsp;př&iacute;jemn&eacute;m prostřed&iacute; ochutn&aacute;te kulin&aacute;řsk&eacute; speciality či netradičně připraven&eacute; ryb&iacute; pochutiny. N&aacute;v&scaron;těvn&iacute;kům se otevře i řeka Vltava, po kter&eacute; je budou přepravovat lodě a př&iacute;voz.</strong></p>\\n                <p>Vstup na akci je zdarma.</p>\\n                <p>Partnery akce jsou Hudba na vinic&iacute;ch, Vinn&yacute; ko&scaron;t, Uměn&iacute; v&iacute;na a RedHead music.</p>\\n                <p>&nbsp;<u><a href=\\\"https://vinananaplavce.cz/\\\">https://vinananaplavce.cz/</a></u></p>\\n                <p>Hana Doležalov&aacute;</p>\",\n            \"createdAt\": \"2022-05-18T05:30:35+02:00\",\n            \"editedAt\": null,\n            \"createdBy\": {\n                \"id\": \"7FQEZQAXB9CGM2J00000000000\",\n                \"username\": \"admin\"\n            }\n        }\n    ],\n    \"page\": 0,\n    \"pageSize\": 1,\n    \"total\": 1\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GetToken",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{bohemiaApiHost}}/api/auth",
+          "host": [
+            "{{bohemiaApiHost}}"
+          ],
+          "path": [
+            "api",
+            "auth"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login Check",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{bohemiaApiHost}}/api/auth",
+              "host": [
+                "{{bohemiaApiHost}}"
+              ],
+              "path": [
+                "api",
+                "auth"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.19.8"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "XDEBUG_SESSION=PHPSTORM; path=/; SameSite=Lax"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 20 May 2022 02:25:37 GMT"
+            },
+            {
+              "key": "X-Debug-Token",
+              "value": "d721c7"
+            },
+            {
+              "key": "X-Debug-Token-Link",
+              "value": "http://api.bohemia.docker/_profiler/d721c7"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NTMwMTM1MzcsImV4cCI6MTY1MzAxNzEzNywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluIn0.GejnX6AnQFp72pt097IIRuqoKtGgOpYhPvCGmtS0d6zE3GwZOIzZepxNKe7leb2D6GLtZLBamsgrwKdcSmdl4uinU2dWJwHom_MqfjzQyls7-ptxUYy_0AemFXy5dI5cDeNd0sI42MMmfa2Kk388WXrcKEYl5UmSFu-ZFF4KtHG_BymIMeIXS6iX3jRtTCnaRxwSJu7Gxk0nZdLAwT-D_fogOjZh5ajjQ7uH_pxUkY5539aPyK46wRzjtAmqZ26Dg9T7jSS8nfAhgjA5JeT0wB-6hL6dfAvyogFGl0Hb2VitTpZw5THX3ep0kuERuLuRnt2bN1tcVAJvpryO1y0E0A\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"password\":\"test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{bohemiaApiHost}}/status",
+          "host": [
+            "{{bohemiaApiHost}}"
+          ],
+          "path": [
+            "status"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Status",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"password\":\"test\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{bohemiaApiHost}}/status",
+              "host": [
+                "{{bohemiaApiHost}}"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.19.8"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "XDEBUG_SESSION=PHPSTORM; path=/; SameSite=Lax"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, must-revalidate, private"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 20 May 2022 01:26:49 GMT"
+            },
+            {
+              "key": "X-Debug-Token",
+              "value": "e3cca1"
+            },
+            {
+              "key": "X-Debug-Token-Link",
+              "value": "http://api.bohemia.docker/_profiler/e3cca1"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            },
+            {
+              "key": "Expires",
+              "value": "Fri, 20 May 2022 01:26:49 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"mysql\": true\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NTMwMTM2MTAsImV4cCI6MTY1MzAxNzIxMCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluIn0.NNaGFSumBAHAdeu15AO4hDZ44-IC_DEvE82vDyuA45HGL52EdAnJn-GxNIq503PkEkfyX9w_XiikPSH12twWrKGsM-IX5umRsz_ecax-WyoentfL3Ac3SifwIf9Sdivx6868p_dYNm-1YODiLHLnaL7GsbjKcUaRYj8fiWWJYALW-UNHsj5Wu5xP7mdyEd0y16IdRmhHIGLGQidVN1pVVVqwWf4XT-6PFfoW4temCVWsDK-kc3_dO7NMX8klUF95d4USbiFqteHOEM8WAVAvJeHO41wbSRGi7y71wwu5pMospUS6u734FbABfnpJitvQqAmuoM_niYDON9SpAgycew",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "bohemiaApiHost",
+      "value": "https://api.bohemia.docker",
+      "type": "string"
+    }
+  ]
+}

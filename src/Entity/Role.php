@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Entity;
 
-use ClownMeister\BohemiaApi\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RoleRepository::class)
+ * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\RoleRepository")
  */
-final class Role
+class Role
 {
     /**
      * @ORM\Id
@@ -54,5 +53,10 @@ final class Role
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

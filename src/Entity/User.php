@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Entity;
 
-use ClownMeister\BohemiaApi\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\UserRepository")
  */
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-final class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="ulid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="doctrine.ulid_generator")
+     * @Groups("user_short")
      */
     private string $id;
     /**
@@ -62,14 +65,10 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("user_short")
      */
     private string $username;
-    /**
-     * @var string[]
-     * @ORM\Column(type="json")
-     * @ORM\ManyToMany(targetEntity="ClownMeister\BohemiaApi\Entity\Role", mappedBy="name")
-     */
-    private array $roles = [];
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -82,11 +81,18 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private DateTimeImmutable $created_at;
+    private DateTimeImmutable $createdAt;
+
+    /**
+     * @var Collection<int, Role>
+     * @ORM\ManyToMany(targetEntity=Role::class)
+     */
+    private Collection $roleCollection;
 
     public function __construct()
     {
-        $this->created_at = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
+        $this->roleCollection = new ArrayCollection();
     }
 
     /**
@@ -276,26 +282,6 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @param string[] $roles
-     */
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
@@ -345,5 +331,53 @@ final class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(?bool $isVerified): void
     {
         $this->isVerified = $isVerified;
+    }
+
+    /**
+     * @param Collection<int, Role> $roleCollection
+     */
+    public function setRoleCollection(Collection $roleCollection): void
+    {
+        $this->roleCollection = $roleCollection;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = [];
+        foreach ($this->roleCollection as $role) {
+            $roles[] = $role->getName();
+        }
+
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRoleCollection(): Collection
+    {
+        return $this->roleCollection;
+    }
+
+    public function addRole(Role $roleCollection): self
+    {
+        if (!$this->roleCollection->contains($roleCollection)) {
+            $this->roleCollection[] = $roleCollection;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $roleCollection): self
+    {
+        $this->roleCollection->removeElement($roleCollection);
+
+        return $this;
     }
 }

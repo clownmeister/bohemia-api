@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class RegistrationSuccessController extends AbstractController
 {
     #[Route('/registration-success', name: 'app_register_success')]
-    public function register(): Response
+    public function index(): Response
     {
         return $this->render('pages/register_confirmation.html.twig');
     }

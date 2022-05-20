@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Entity;
 
-use ClownMeister\BohemiaApi\Repository\CommentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\CommentRepository")
  */
-final class Comment
+class Comment
 {
     /**
      * @ORM\Id
@@ -28,19 +27,15 @@ final class Comment
      * @ORM\Column(type="string", length=1024, nullable=true)
      */
     private string $text;
-    /**
-     * @ORM\Column(type="ulid")
-     * @ORM\OneToMany(targetEntity="ClownMeister\BohemiaApi\Entity\User",mappedBy="id")
-     */
-    private string $author_id;
+
     /**
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private DateTimeImmutable $created_at;
+    private DateTimeImmutable $createdAt;
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private DateTimeImmutable $edited_at;
+    private ?DateTimeImmutable $editedAt = null;
     /**
      * @ORM\Column(type="boolean", options={"default": 0})
      */
@@ -50,9 +45,20 @@ final class Comment
      */
     private bool $deleted = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private User $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private User $editedBy;
+
     public function __construct()
     {
-        $this->created_at = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     /**
@@ -104,35 +110,19 @@ final class Comment
     }
 
     /**
-     * @return string
+     * @return DateTimeImmutable|null
      */
-    public function getAuthorId(): string
+    public function getEditedAt(): ?DateTimeImmutable
     {
-        return $this->author_id;
+        return $this->editedAt;
     }
 
     /**
-     * @param string $author_id
+     * @param DateTimeImmutable|null $editedAt
      */
-    public function setAuthorId(string $author_id): void
+    public function setEditedAt(?DateTimeImmutable $editedAt): void
     {
-        $this->author_id = $author_id;
-    }
-
-    /**
-     * @return DateTimeImmutable
-     */
-    public function getEditedAt(): DateTimeImmutable
-    {
-        return $this->edited_at;
-    }
-
-    /**
-     * @param DateTimeImmutable $edited_at
-     */
-    public function setEditedAt(DateTimeImmutable $edited_at): void
-    {
-        $this->edited_at = $edited_at;
+        $this->editedAt = $editedAt;
     }
 
     /**
@@ -152,6 +142,14 @@ final class Comment
     }
 
     /**
+     * @return DateTimeImmutable
+     */
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
      * @return bool
      */
     public function isDeleted(): bool
@@ -165,6 +163,30 @@ final class Comment
     public function setDeleted(bool $deleted): void
     {
         $this->deleted = $deleted;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getEditedBy(): ?User
+    {
+        return $this->editedBy;
+    }
+
+    public function setEditedBy(?User $editedBy): self
+    {
+        $this->editedBy = $editedBy;
+
+        return $this;
     }
 
 }

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class LogoutController extends AbstractController
 {
     #[Route('/logout', name: 'app_logout')]
-    public function register(): Response
+    public function index(): Response
     {
         return $this->redirectToRoute('app_login');
     }

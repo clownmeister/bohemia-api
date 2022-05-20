@@ -18,9 +18,64 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /api/auth:
+    get:
+      tags: [ Auth ]
+      operationId: api_auth
+      description: Get JWT token with credentials
+      requestBody:
+        $ref: '#/components/requestBodies/AuthRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '401':
+          $ref: '#/components/responses/InvalidCredentialsError'
+  /api/v1/post:
+    get:
+      tags: [ Post ]
+      operationId: get_posts
+      description: Get published posts
+      requestBody:
+        $ref: '#/components/requestBodies/GetPostRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPostResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '401':
+          $ref: '#/components/responses/ExpiredJWTError'
 
 components:
+  requestBodies:
+    GetPostRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetPostRequest'
+    AuthRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthRequest'
   responses:
+    GetPostResponse:
+      description: Posts response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetPostResponse'
+    TokenResponse:
+      description: Token response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokenResponse'
     Status:
       description: Service status
       content:
@@ -46,10 +101,77 @@ components:
       description: NotFound
     InternalServerError:
       description: Internal Server Error
+    InvalidCredentialsError:
+      description: Invalid credentials.
+    ExpiredJWTError:
+      description: Expired JWT token.
     Conflict:
       description: Confict
 
   schemas:
+    GetPostRequest:
+      properties:
+        page:
+          type: integer
+          example: 0
+        pageSize:
+          type: integer
+          example: 10
+    AuthRequest:
+      properties:
+        username:
+          type: string
+          example: admin
+        password:
+          type: string
+          example: 123456
+    GetPostResponse:
+      properties:
+        items:
+          type: array
+          items:
+            properties:
+              slug:
+                type: string
+                example: novinky-ze-sveta
+              id:
+                type: string
+                example: 01G3AKF9WKRRTT8TVMM5M1DNVY
+              title:
+                type: string
+                example: "Novinky ze světa"
+              html:
+                type: string
+                example: "<div>Html here</div>"
+              createdAt:
+                type: string
+                example: "2022-05-18T05:30:35+02:00"
+              editedAt:
+                type: string
+                example: "2022-05-18T05:30:35+02:00"
+              createdBy:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 7FQEZQAXB9CGM2J00000000000
+                  username:
+                    type: string
+                    example: admin
+        page:
+          type: integer
+          example: 0
+        pageSize:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 13
+    TokenResponse:
+      properties:
+        token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NTMwMDc3NDQsImV4cCI6MTY1MzAxMTM0NCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6ImFkbWluIn0.l6VGK0WplMqBxsXXsAlYfrWCsOdxLo7hGv40i92PiZJ65mTVMlSSMbhGeseM6fsapN1fXnVrJP4fQqYGMuVpEUFD9SbrE8zZb2wy7gZ9a1heNlhW_6RZseht1_KyfS5Yw4wpjhOuPg6bN0vvWclLQZkxa6SUj-vlbMuBRtaNI1hvExnv-SefdZaT2eoQmnp8GxdLNgYcZ9-995qVlf947G9gnwjGgxaGvJNsZ_oQvcZI2m0XmW-GGuEwOyPve41JT3cJbX3ChnTRJ_YiZrEuT13vyE1cAp2tkqAqG6KLoP_oy3f1PKXqHe4k5F9l_JDOo6ACL4izzrcbyedwecVMbQ
     Status:
       properties:
         mysql:
