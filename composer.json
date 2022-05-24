@@ -14,16 +14,16 @@
     "ext-pdo_mysql": "*",
     "ext-zip": "*",
     "doctrine/annotations": "^1.0",
-    "doctrine/doctrine-bundle": "^2.6",
-    "doctrine/doctrine-migrations-bundle": "^3.2",
-    "doctrine/orm": "^2.12",
-    "easycorp/easyadmin-bundle": "^4.2",
+    "doctrine/doctrine-bundle": "2.6.*",
+    "doctrine/doctrine-migrations-bundle": "3.2.*",
+    "doctrine/orm": "2.12.*",
+    "easycorp/easyadmin-bundle": "4.2.*",
     "friendsofsymfony/ckeditor-bundle": "^2.4",
-    "justinrainbow/json-schema": "^5.2",
-    "lexik/jwt-authentication-bundle": "^2.15",
-    "phpdocumentor/reflection-docblock": "^5.3",
-    "phpstan/phpdoc-parser": "^1.5",
-    "sensio/framework-extra-bundle": "^6.1",
+    "justinrainbow/json-schema": "5.2.*",
+    "lexik/jwt-authentication-bundle": "2.15.*",
+    "phpdocumentor/reflection-docblock": "5.3.*",
+    "phpstan/phpdoc-parser": "1.5.*",
+    "sensio/framework-extra-bundle": "6.2.*",
     "symfony/asset": "5.4.*",
     "symfony/console": "5.4.*",
     "symfony/doctrine-messenger": "5.4.*",
@@ -53,7 +53,7 @@
     "symfony/web-link": "5.4.*",
     "symfony/webapp-meta": "^1.0",
     "symfony/yaml": "5.4.*",
-    "symfonycasts/verify-email-bundle": "^1.10",
+    "symfonycasts/verify-email-bundle": "1.10.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0"
   },
@@ -61,7 +61,8 @@
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
       "symfony/flex": true,
-      "symfony/runtime": true
+      "symfony/runtime": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "optimize-autoloader": true,
     "preferred-install": {
@@ -111,6 +112,10 @@
     "symfony/debug-bundle": "5.4.*",
     "symfony/maker-bundle": "^1.0",
     "symfony/stopwatch": "5.4.*",
-    "symfony/web-profiler-bundle": "5.4.*"
+    "symfony/web-profiler-bundle": "5.4.*",
+    "squizlabs/php_codesniffer": "^3.6",
+    "phpstan/phpstan": "^0.12",
+    "phpunit/phpunit": "^9.5",
+    "slevomat/coding-standard": "^7.0"
   }
 }

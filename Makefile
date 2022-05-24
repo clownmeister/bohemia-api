@@ -34,6 +34,10 @@ composer-install:
 	@echo "\e[103;30m******************************         Composer Install          ******************************\e[0m\n"
 	$(PHP) "composer install"
 
+composer-update:
+	@echo "\e[103;30m******************************         Composer Update          ******************************\e[0m\n"
+	$(PHP) "composer update"
+
 yarn-install:
 	@echo "\e[103;30m******************************         Yarn Install          ******************************\e[0m\n"
 	$(NPM) "yarn install"
