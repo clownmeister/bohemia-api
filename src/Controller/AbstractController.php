@@ -27,6 +27,7 @@ abstract class AbstractController extends SymfonyAbstractController
         }
 
         $message = "BAD_REQUEST:\n";
+
         foreach ($validator->getErrors() as $error) {
             $message .= sprintf("[%s] %s\n", $error['property'], $error['message']);
         }

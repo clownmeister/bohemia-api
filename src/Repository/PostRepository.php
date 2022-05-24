@@ -10,11 +10,10 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Post>
- *
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Post[] findAll()
+ * @method Post[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class PostRepository extends ServiceEntityRepository
 {
@@ -27,8 +26,10 @@ final class PostRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        if (!$flush) {
+            return;
         }
+
+        $this->getEntityManager()->flush();
     }
 }

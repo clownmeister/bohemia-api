@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="ClownMeister\BohemiaApi\Repository\RoleHierarchyRepository")
  */
-class RoleHierarchy
+final class RoleHierarchy
 {
     /**
      * @ORM\Id
@@ -57,17 +59,11 @@ class RoleHierarchy
         return $this->roleCollection;
     }
 
-    /**
-     * @param Collection $roleCollection
-     */
     public function setRoleCollection(Collection $roleCollection): void
     {
         $this->roleCollection = $roleCollection;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;

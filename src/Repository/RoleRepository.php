@@ -10,11 +10,10 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Role>
- *
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
  * @method Role|null findOneBy(array $criteria, array $orderBy = null)
- * @method Role[]    findAll()
- * @method Role[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Role[] findAll()
+ * @method Role[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class RoleRepository extends ServiceEntityRepository
 {
@@ -27,8 +26,10 @@ final class RoleRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        if (!$flush) {
+            return;
         }
+
+        $this->getEntityManager()->flush();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
@@ -9,15 +10,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 final class RoleCrudController extends AbstractCrudController
 {
-    public static function getEntityFqcn(): string
-    {
-        return Role::class;
-    }
-
     public function configureFields(string $pageName): iterable
     {
         return [
             TextField::new('name'),
         ];
+    }
+
+    public static function getEntityFqcn(): string
+    {
+        return Role::class;
     }
 }

@@ -12,7 +12,7 @@
     <file>tests</file>
 
     <!--  Include slevomat ruleset  -->
-    <rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"/>
+<!--    <rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"/>-->
 
 
     <!--  Exclusions  -->
@@ -51,6 +51,9 @@
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
         <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment"/>
         <exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator"/>
+        <exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax"/>
+        <exclude name="SlevomatCodingStandard.Functions.FunctionLength"/>
     </rule>
 
     <!--  Require property promotion php8  -->
@@ -67,6 +70,22 @@
 
     <!--  https://knowthecode.io/yoda-conditions-yoda-not-yoda  -->
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
+
+    <!--  Require declared strict types  -->
+    <rule ref="SlevomatCodingStandard.Functions.FunctionLength">
+        <properties>
+            <property name="maxLinesLength" value="40"/>
+        </properties>
+    </rule>
+
+    <!--  Require declared strict types  -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="linesCountBeforeDeclare" value="1"/>
+            <property name="linesCountAfterDeclare" value="1"/>
+            <property name="spacesCountAroundEqualsSign" value="0"/>
+        </properties>
+    </rule>
 
     <!--  Check for type uses. Also in comments  -->
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">

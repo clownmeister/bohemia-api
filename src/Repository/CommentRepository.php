@@ -10,11 +10,10 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Comment>
- *
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
  * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
- * @method Comment[]    findAll()
- * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comment[] findAll()
+ * @method Comment[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class CommentRepository extends ServiceEntityRepository
 {
@@ -27,8 +26,10 @@ final class CommentRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        if (!$flush) {
+            return;
         }
+
+        $this->getEntityManager()->flush();
     }
 }

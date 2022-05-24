@@ -22,7 +22,7 @@ final class RegistrationHandler
     ) {
     }
 
-    public function handle(User $user, FormInterface $form)
+    public function handle(User $user, FormInterface $form): void
     {
         $user->setPassword(
             $this->userPasswordHasher->hashPassword(

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Controller\Api;
 
 use ClownMeister\BohemiaApi\Controller\AbstractController;
@@ -14,10 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class PostRegisterUser extends AbstractController
 {
-    public function __construct(
-        private UserRepository $repository,
-        private EntityManagerInterface $entityManager
-    ) {
+    public function __construct(private UserRepository $repository, private EntityManagerInterface $entityManager)
+    {
     }
 
     #[Route('/user', name: 'api_user_register', methods: ['POST'])]
