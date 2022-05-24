@@ -76,15 +76,15 @@ cache-clear:
 
 fix:
 	@echo "\e[103;30m******************************         PHPCBF          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpcbf --standard=./phpcs-ruleset.xml -p src/ tests/"
+	@$(PHP) "./vendor/bin/phpcbf --standard=./phpcs-ruleset.xml -p src/ test/"
 
 phpcs:
 	@echo "\e[103;30m******************************         PHPCS          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpcs --standard=./phpcs-ruleset.xml -p src/ tests/"
+	@$(PHP) "./vendor/bin/phpcs --standard=./phpcs-ruleset.xml -p src/ test/"
 
 phpstan:
 	@echo "\e[103;30m******************************         PHPStan          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpstan analyse -c phpstan.neon -l 8 src/ tests/"
+	@$(PHP) "./vendor/bin/phpstan analyse -c phpstan.neon -l 8 src/ test/"
 
 test:
 	@echo "\e[103;30m******************************         Test          ******************************\e[0m\n"

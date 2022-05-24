@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="ClownMeister sqa">
+    <rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"/>
+
+    <rule ref="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousSuffix"/>
+
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name='rootNamespaces' type='array'>
+                <element key='src/' value='ClownMeister\BohemiaApi'/>
+                <element key='test/' value='ClownMeister\BohemiaApi\Test'/>
+            </property>
+        </properties>
+    </rule>
+
+    <!--  php 7.4  -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <properties>
+            <property name="enableObjectTypeHint" value="true"/>
+        </properties>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <properties>
+            <property name="enableNativeTypeHint" value="true"/>
+        </properties>
+    </rule>
+</ruleset>
