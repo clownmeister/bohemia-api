@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Controller;
-
 
 use ClownMeister\BohemiaApi\Exception\InvalidEntityTypeException;
 use ClownMeister\BohemiaApi\Handler\RestoreCommentHandler;
@@ -31,10 +29,13 @@ final class RestoreEntityController extends AbstractController
         switch ($type) {
             case 'post':
                 $this->postHandler->handle($id, $user);
+
                 break;
             case 'comment':
                 $this->commentHandler->handle($id, $user);
+
                 break;
+
             default:
                 throw new InvalidEntityTypeException();
         }

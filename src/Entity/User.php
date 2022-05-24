@@ -96,7 +96,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getCountry(): ?string
     {
@@ -112,7 +111,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
      */
     public function getId(): string
     {
@@ -128,7 +126,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
      */
     public function getFirstname(): string
     {
@@ -144,7 +141,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
      */
     public function getLastname(): string
     {
@@ -160,7 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getPhone(): ?string
     {
@@ -176,7 +171,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getStreet(): ?string
     {
@@ -192,7 +186,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getCity(): ?string
     {
@@ -208,7 +201,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getState(): ?string
     {
@@ -224,7 +216,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string|null
      */
     public function getZip(): ?string
     {
@@ -240,7 +231,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return string
      */
     public function getEmail(): string
     {
@@ -311,14 +301,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
     /**
-     * @return bool|null
      */
     public function getIsVerified(): ?bool
     {

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Entity;
 
 use DateTimeImmutable;
@@ -22,7 +21,6 @@ final class TrashEntity
     }
 
     /**
-     * @return string
      */
     public function getId(): string
     {
@@ -30,7 +28,6 @@ final class TrashEntity
     }
 
     /**
-     * @return string
      */
     public function getName(): string
     {
@@ -38,7 +35,6 @@ final class TrashEntity
     }
 
     /**
-     * @return string
      */
     public function getType(): string
     {
@@ -46,7 +42,6 @@ final class TrashEntity
     }
 
     /**
-     * @return DateTimeImmutable
      */
     public function getRemovedAt(): DateTimeImmutable
     {
@@ -54,7 +49,6 @@ final class TrashEntity
     }
 
     /**
-     * @return bool
      */
     public function isDeleted(): bool
     {

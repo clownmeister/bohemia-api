@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Controller\Api;
 
 use ClownMeister\BohemiaApi\Controller\AbstractController;
@@ -31,11 +30,12 @@ final class GetPublishedPosts extends AbstractController
         $offset = $page * $limit;
 
         //TODO: Encode html to reduce size but what format. Base64 didn't perform.
-        $posts = $this->postRepository->findBy([
+        $posts = $this->postRepository->findBy(
+            [
             'published' => 1,
             'archived' => 0,
             'deleted' => 0
-        ],
+            ],
             ['createdAt' => 'desc'],
             $limit,
             $offset

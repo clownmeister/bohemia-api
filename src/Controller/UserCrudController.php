@@ -77,7 +77,8 @@ final class UserCrudController extends AbstractCrudController
                 $this->hasher->hashPassword(
                     $user,
                     $user->getPassword()
-                ));
+                )
+            );
         }
 
         parent::persistEntity($entityManager, $user);

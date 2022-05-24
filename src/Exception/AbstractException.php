@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Exception;
 
 use Symfony\Component\Config\Definition\Exception\Exception;

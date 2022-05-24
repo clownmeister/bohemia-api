@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Handler;
 
 use ClownMeister\BohemiaApi\Entity\User;
@@ -16,7 +15,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class RegistrationHandler
 {
-    public function __construct(private EmailVerifier $emailVerifier, private UsernameGenerator $usernameGenerator,
+    public function __construct(
+        private EmailVerifier $emailVerifier,
+        private UsernameGenerator $usernameGenerator,
         private UserPasswordHasherInterface $userPasswordHasher,
         private EntityManagerInterface $entityManager
     ) {
@@ -36,7 +37,9 @@ final class RegistrationHandler
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+        $this->emailVerifier->sendEmailConfirmation(
+            'app_verify_email',
+            $user,
             (new TemplatedEmail())
                 ->from(new Address('mailer@api.bohemia.com', 'Mailer'))
                 ->to($user->getEmail())

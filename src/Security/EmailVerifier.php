@@ -25,8 +25,8 @@ final class EmailVerifier
     ) {
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email
-    ): void {
+    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    {
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }

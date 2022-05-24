@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Security;
 
 use ClownMeister\BohemiaApi\Entity\User;
@@ -17,7 +16,6 @@ final class UsernameGenerator
 {
     public function __construct(private EntityManagerInterface $manager, private SluggerInterface $slugger)
     {
-
     }
 
     public function generate(UserInterface $user): string

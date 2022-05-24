@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Factory;
 
 use ClownMeister\BohemiaApi\Entity\Comment;
@@ -12,7 +11,6 @@ use ClownMeister\BohemiaApi\Exception\InvalidEntityTypeSuppliedFactoryException;
 
 final class TrashEntityFactory implements FactoryInterface
 {
-
     /**
      * @param array $data
      *
@@ -47,6 +45,5 @@ final class TrashEntityFactory implements FactoryInterface
             ),
             default => throw new InvalidEntityTypeSuppliedFactoryException(),
         };
-
     }
 }

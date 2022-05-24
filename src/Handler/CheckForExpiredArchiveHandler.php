@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Handler;
 
 use ClownMeister\BohemiaApi\Repository\CommentRepository;

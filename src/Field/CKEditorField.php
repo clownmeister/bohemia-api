@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
@@ -13,10 +12,7 @@ final class CKEditorField implements FieldInterface
 {
     use FieldTrait;
 
-    /**
-     * @param string|false|null $label
-     */
-    public static function new(string $propertyName, $label = null): self
+    public static function new(string $propertyName, string|false|null $label = null): self
     {
         return (new self())
             ->setProperty($propertyName)
