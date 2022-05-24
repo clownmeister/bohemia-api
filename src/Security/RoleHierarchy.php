@@ -31,7 +31,9 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
         foreach ($rows as $roleHierarchy) {
             /** @var RoleHierarchyEntity $roleHierarchy */
             $result[$roleHierarchy->getParentRole()->getName()] = array_map(
-                fn(Role $role): string => $role->getName(),
+                function (Role $role): string {
+                    return $role->getName();
+                },
                 $roleHierarchy->getRoleCollection()->toArray()
             );
         }
