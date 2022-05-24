@@ -1,20 +1,35 @@
 <?xml version="1.0"?>
 <ruleset name="ClownMeister sqa">
+    <!--  Include slevomat ruleset  -->
     <rule ref="./vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml"/>
 
+    <!--  Require functional comments  -->
     <rule ref="Squiz.Commenting.FunctionComment.MissingParamComment"/>
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousSuffix"/>
 
-    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
-        <properties>
-            <property name='rootNamespaces' type='array'>
-                <element key='src/' value='ClownMeister\BohemiaApi'/>
-                <element key='test/' value='ClownMeister\BohemiaApi\Test'/>
-            </property>
-        </properties>
+    <!--  Exclusions  -->
+    <rule ref="Squiz">
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+        <exclude name="Squiz.Commenting.ClassComment"/>
+        <exclude name="Squiz.Commenting.FileComment"/>
+        <exclude name="Squiz.Files.FileExtension"/>
+        <exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
     </rule>
 
-    <!--  php 7.4  -->
+    <!--  Slevomat ruleset override  -->
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming.SuperfluousSuffix"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+
+    <!--  TODO: Does not work  -->
+    <!--    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">-->
+    <!--        <properties>-->
+    <!--            <property name='rootNamespaces' type='array'>-->
+    <!--                <element key='src/' value='ClownMeister\BohemiaApi'/>-->
+    <!--                <element key='test/' value='ClownMeister\BohemiaApi\Test'/>-->
+    <!--            </property>-->
+    <!--        </properties>-->
+    <!--    </rule>-->
+
+    <!--  allow native type hints  -->
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
         <properties>
             <property name="enableObjectTypeHint" value="true"/>
