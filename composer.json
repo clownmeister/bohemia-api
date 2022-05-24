@@ -1,4 +1,6 @@
 {
+  "name": "clownmeister/bohemia-api",
+  "description": "Backend & API for bohemia app.",
   "type": "project",
   "license": "proprietary",
   "minimum-stability": "stable",
