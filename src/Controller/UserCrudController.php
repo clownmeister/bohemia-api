@@ -64,7 +64,7 @@ final class UserCrudController extends AbstractCrudController
         return $actions;
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $user = $entityInstance;
         if (!$user instanceof User) {

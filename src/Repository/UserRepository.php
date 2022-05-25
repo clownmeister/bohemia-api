@@ -75,7 +75,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         return $user;
     }
 
-    public function loadUserByUsername(string $username): User
+    public function loadUserByUsername(string $username): ?User
     {
         return $this->loadUserByIdentifier($username);
     }

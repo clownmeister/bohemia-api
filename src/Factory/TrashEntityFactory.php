@@ -12,7 +12,7 @@ use ClownMeister\BohemiaApi\Exception\InvalidEntityTypeSuppliedFactoryException;
 final class TrashEntityFactory implements FactoryInterface
 {
     /**
-     * @param array $data
+     * @param mixed[] $data
      *
      * @return TrashEntity[]
      */

@@ -16,6 +16,9 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
         parent::__construct($this->buildRolesHierarchy());
     }
 
+    /**
+     * @return array<string, array<int, string>>
+     */
     private function buildRolesHierarchy(): array
     {
         $result = [];
@@ -29,6 +32,10 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
 
         foreach ($rows as $roleHierarchy) {
             /** @var RoleHierarchyEntity $roleHierarchy */
+            if ($roleHierarchy->getParentRole() === null) {
+                continue;
+            }
+
             $result[$roleHierarchy->getParentRole()->getName()] = array_map(
                 function (Role $role): string {
                     return $role->getName();

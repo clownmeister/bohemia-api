@@ -1,6 +1,8 @@
 PHP = docker exec -it -w /var/www bapi-php bash -c
 NPM = docker exec -it -w /var/www bapi-npm bash -c
 
+.PHONY: test
+
 default:
 	@echo "\e[102;30m******************************         Izi Start          ******************************\e[0m\n"
 	@make env up install

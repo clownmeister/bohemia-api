@@ -16,6 +16,12 @@ abstract class AbstractController extends SymfonyAbstractController
 
     protected const ENCODE_TYPE_JSON = 'json';
 
+    /**
+     * @param string $json
+     * @param string $schema
+     *
+     * @return mixed[]
+     */
     protected function validateSchema(string $json, string $schema): array
     {
         $data = json_decode($json);

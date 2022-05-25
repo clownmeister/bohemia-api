@@ -7,6 +7,7 @@ namespace ClownMeister\BohemiaApi\Controller\Api;
 use ClownMeister\BohemiaApi\Controller\AbstractController;
 use ClownMeister\BohemiaApi\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,14 @@ final class PostRegisterUser extends AbstractController
     {
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/user', name: 'api_user_register', methods: ['POST'])]
     public function index(Request $request): Response
     {
         $data = $this->validateSchema($request->getContent(), __DIR__ . '/schema/user/register.json');
+
+        throw new Exception('Must implement');
     }
 }

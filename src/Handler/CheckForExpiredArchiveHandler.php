@@ -27,7 +27,7 @@ final class CheckForExpiredArchiveHandler
         //TODO: common entity interface to avoid repetition
         $posts = $this->postRepository->findBy(['archived' => 1]);
         foreach ($posts as $post) {
-            if ($post->getEditedAt()->getTimestamp() + self::ARCHIVE_EXPIRE_SECONDS < $now->getTimestamp()) {
+            if ($post->getEditedAt()?->getTimestamp() + self::ARCHIVE_EXPIRE_SECONDS < $now->getTimestamp()) {
                 $post->setArchived(false);
                 $post->setDeleted(true);
                 $this->entityManager->persist($post);
@@ -36,7 +36,7 @@ final class CheckForExpiredArchiveHandler
 
         $comments = $this->commentRepository->findBy(['archived' => 1]);
         foreach ($comments as $comment) {
-            if ($comment->getEditedAt()->getTimestamp() + self::ARCHIVE_EXPIRE_SECONDS < $now->getTimestamp()) {
+            if ($comment->getEditedAt()?->getTimestamp() + self::ARCHIVE_EXPIRE_SECONDS < $now->getTimestamp()) {
                 $comment->setArchived(false);
                 $comment->setDeleted(true);
                 $this->entityManager->persist($comment);

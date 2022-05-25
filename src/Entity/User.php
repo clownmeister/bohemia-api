@@ -82,7 +82,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $createdAt;
-
     /**
      * @var Collection<int, Role>
      * @ORM\ManyToMany(targetEntity=Role::class)
@@ -93,6 +92,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new DateTimeImmutable();
         $this->roleCollection = new ArrayCollection();
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 
     public function getCountry(): ?string
@@ -301,14 +305,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param Collection<int, Role> $roleCollection
-     */
-    public function setRoleCollection(Collection $roleCollection): void
-    {
-        $this->roleCollection = $roleCollection;
-    }
-
-    /**
      * @see UserInterface
      */
     public function getRoles(): array
@@ -330,6 +326,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoleCollection(): Collection
     {
         return $this->roleCollection;
+    }
+
+    /**
+     * @param Collection<int, Role> $roleCollection
+     */
+    public function setRoleCollection(Collection $roleCollection): void
+    {
+        $this->roleCollection = $roleCollection;
     }
 
     public function addRole(Role $roleCollection): self

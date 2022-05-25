@@ -176,11 +176,9 @@ class Post
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $createdBy): self
+    public function setCreatedBy(User $createdBy): void
     {
         $this->createdBy = $createdBy;
-
-        return $this;
     }
 
     public function getEditedBy(): ?User
@@ -188,10 +186,8 @@ class Post
         return $this->editedBy;
     }
 
-    public function setEditedBy(?User $editedBy): self
+    public function setEditedBy(User $editedBy): void
     {
         $this->editedBy = $editedBy;
-
-        return $this;
     }
 }

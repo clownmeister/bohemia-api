@@ -51,6 +51,10 @@ final class UsernameGenerator
             throw new ServiceUnavailableException(previous: $exception);
         }
 
+        if (is_bool($result)) {
+            throw new ServiceUnavailableException();
+        }
+
         return $result['total'];
     }
 }

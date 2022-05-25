@@ -60,7 +60,7 @@ final class PostCrudController extends AbstractCrudController
             ->andWhere('entity.deleted = 0');
     }
 
-    public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function deleteEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         if (!$this->isGranted('ROLE_POST_REMOVE')) {
             return;
@@ -106,7 +106,7 @@ final class PostCrudController extends AbstractCrudController
         return $post;
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function updateEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $post = $entityInstance;
 
@@ -120,7 +120,7 @@ final class PostCrudController extends AbstractCrudController
         parent::updateEntity($entityManager, $post);
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $post = $entityInstance;
 

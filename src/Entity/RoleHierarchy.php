@@ -59,6 +59,10 @@ final class RoleHierarchy
         return $this->roleCollection;
     }
 
+    /**
+     * @param ArrayCollection<int, Role> $roleCollection
+     *
+     */
     public function setRoleCollection(Collection $roleCollection): void
     {
         $this->roleCollection = $roleCollection;
