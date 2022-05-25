@@ -28,7 +28,7 @@ services:
             - app-php
         volumes:
             - ./docker/nginx/conf.d/${ENVIRONMENT}.conf:/etc/nginx/conf.d/default.conf:ro
-            - ./:/var/www
+            - ./:/var/www/html
     php:
         <<: *defaults
         build:
