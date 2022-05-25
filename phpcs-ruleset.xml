@@ -26,11 +26,16 @@
     <!--  https://knowthecode.io/yoda-conditions-yoda-not-yoda  -->
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
 
+    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation"/>
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+
     <!--  Require declared strict types  -->
     <rule ref="SlevomatCodingStandard.Functions.FunctionLength">
         <properties>
-            <property name="maxLinesLength" value="40"/>
+            <property name="maxLinesLength" value="60"/>
         </properties>
+        <type>warning</type>
     </rule>
 
     <!--  Require declared strict types  -->
@@ -48,9 +53,6 @@
             <property name="searchAnnotations" value="true"/>
         </properties>
     </rule>
-
-    <!--  Require functional comments only  -->
-    <rule ref="Squiz.Commenting.FunctionComment.MissingParamComment"/>
 
     <!--  Short array syntax only  -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>

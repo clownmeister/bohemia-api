@@ -95,8 +95,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roleCollection = new ArrayCollection();
     }
 
-    /**
-     */
     public function getCountry(): ?string
     {
         return $this->country;
@@ -110,8 +108,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->country = $country;
     }
 
-    /**
-     */
     public function getId(): string
     {
         return $this->id;
@@ -125,8 +121,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = $id;
     }
 
-    /**
-     */
     public function getFirstname(): string
     {
         return $this->firstname;
@@ -140,8 +134,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->firstname = $firstname;
     }
 
-    /**
-     */
     public function getLastname(): string
     {
         return $this->lastname;
@@ -155,8 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
     }
 
-    /**
-     */
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -170,8 +160,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->phone = $phone;
     }
 
-    /**
-     */
     public function getStreet(): ?string
     {
         return $this->street;
@@ -185,8 +173,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->street = $street;
     }
 
-    /**
-     */
     public function getCity(): ?string
     {
         return $this->city;
@@ -200,8 +186,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->city = $city;
     }
 
-    /**
-     */
     public function getState(): ?string
     {
         return $this->state;
@@ -215,8 +199,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->state = $state;
     }
 
-    /**
-     */
     public function getZip(): ?string
     {
         return $this->zip;
@@ -230,8 +212,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zip = $zip;
     }
 
-    /**
-     */
     public function getEmail(): string
     {
         return $this->email;
@@ -307,8 +287,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     */
     public function getIsVerified(): ?bool
     {
         return $this->isVerified;

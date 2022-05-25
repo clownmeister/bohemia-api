@@ -20,36 +20,26 @@ final class TrashEntity
     ) {
     }
 
-    /**
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     */
     public function getRemovedAt(): DateTimeImmutable
     {
         return $this->removedAt;
     }
 
-    /**
-     */
     public function isDeleted(): bool
     {
         return $this->deleted;
