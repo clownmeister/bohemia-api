@@ -71,57 +71,18 @@ Execute only in root of the project
 
 ## Dev notes & todo:
 
-### Features:
+### Todo:
 
-* Register / Login recaptcha
-
-### Design
-
-* Api (tba - wip)
-  * GET/POST:/api/v1/session/new (sso/auth?)
-  * POST:/api/v1/session (Login)
-  * DELETE:/api/v1/session (Logout)
-  * GET:/api/v1/users (get user data)
-  * GET:/api/v1/posts (get post list)
-  * GET:/api/v1/posts/:postId (get post)
-* Backend
-  * Login page
-  * User edit/create/enable/disable (create surname + firstname abbreviation)
-  * Roles edit/create
-  * Posts edit/create
-
-### Permissions
-
-* ROLE_USER
-  * default
-* ROLE_MODERATOR
-* ROLE_ADMIN
-* ROLE_COMMENT_VIEW
-  * View admin comments section
-* ROLE_COMMENT_ADD
-* ROLE_COMMENT_REMOVE
-* ROLE_COMMENT_RESTORE
-* ROLE_POST_VIEW
-  * View admin posts section
-* ROLE_POST_ADD
-* ROLE_POST_EDIT
-* ROLE_POST_REMOVE
-* ROLE_POST_RESTORE
-* ROLE_POST_PUBLISH
-* ROLE_USER_VIEW
-  * View admin users section
-* ROLE_USER_ADD
-* ROLE_USER_EDIT
-* ROLE_USER_REMOVE
-* ROLE_USER_ENABLE
-* ROLE_USER_DISABLE
-* ROLE_ROLE_VIEW
-  * View admin roles section
-* ROLE_ROLE_ADD
-* ROLE_ROLE_REMOVE
-* ROLE_HIERARCHY_VIEW
-* ROLE_HIERARCHY_ADD
-* ROLE_HIERARCHY_REMOVE
+* Public endpoints get post
+* get single post
+* post desc / post short text
+* post thumb / title pic
+* login
+* logout
+* register api
+* add comment endpoint
+* edit comment endpoint
+* remove comment endpoint
 
 ### Tech-debt & notes
 
