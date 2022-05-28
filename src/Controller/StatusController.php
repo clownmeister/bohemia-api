@@ -26,7 +26,7 @@ final class StatusController extends AbstractController
         }
 
         return new Response(
-            json_encode([
+            (string) json_encode([
                 'mysql' => $mysql
             ]),
             Response::HTTP_OK,

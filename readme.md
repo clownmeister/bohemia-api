@@ -46,82 +46,44 @@ Catch the emails at <http://api.bohemia.docker:82>
 
 Execute only in root of the project
 
-| Command            | Description                                                                            |
-|--------------------|----------------------------------------------------------------------------------------|
-| `make`             | Easy start up. Starts docker, installs, builds.                                        |
-| `make env`         | Copies .env file. In some cases fills out some things.                                 |
-| `make up`          | Starts/Restarts containers.                                                            |
-| `make install`     | Installs project packages and generates JWT keys. Also runs migrations. Builds assets. |
-| `make udpate`      | Runs composer update.                                                                  |
-| `make vendor`      | Clears vendor.                                                                         |
-| `make cache-clear` | Clears symfony cache.                                                                  |
-| `make build`       | Builds assets into build folder.                                                       |
-| `make watch`       | Runs asset watcher.                                                                    |
-| `make test`        | Runs all tests.                                                                        |
-| `make phpcs`       | Runs PHP code sniffer.                                                                 |
-| `make fix`         | Fixes all fixable code style issues from PHPCS.                                        |
-| `make phpstan`     | Runs PHPStan.                                                                          |
-| `make diff`        | Creates ORM migration.                                                                 |
-| `make migrate`     | Migrates to latest migration.                                                          |
-| `make migration`   | Creates blank migration.                                                               |
-| `make drop`        | Drops db and clears migration history.                                                 |
-| `make validate`    | Validates db schema against mapper.                                                    |
-| `make send-mail`   | Send all mails from queue. Needed for registration.                                    |
+| Command                 | Description                                                                            |
+|-------------------------|----------------------------------------------------------------------------------------|
+| `make`                  | Easy start up. Starts docker, installs, builds.                                        |
+| `make env`              | Copies .env file. In some cases fills out some things.                                 |
+| `make up`               | Starts/Restarts containers.                                                            |
+| `make install`          | Installs project packages and generates JWT keys. Also runs migrations. Builds assets. |
+| `make composer-install` | Installs composer.                                                                     |
+| `make composer-update`  | Updates composer.                                                                      |
+| `make udpate`           | Runs composer update.                                                                  |
+| `make vendor`           | Clears vendor.                                                                         |
+| `make cache-clear`      | Clears symfony cache.                                                                  |
+| `make build`            | Builds assets into build folder.                                                       |
+| `make watch`            | Runs asset watcher.                                                                    |
+| `make test`             | Runs all tests.                                                                        |
+| `make phpcs`            | Runs PHP code sniffer.                                                                 |
+| `make fix`              | Fixes all fixable code style issues from PHPCS.                                        |
+| `make phpstan`          | Runs PHPStan.                                                                          |
+| `make diff`             | Creates ORM migration.                                                                 |
+| `make migrate`          | Migrates to latest migration.                                                          |
+| `make migration`        | Creates blank migration.                                                               |
+| `make drop`             | Drops db and clears migration history.                                                 |
+| `make validate`         | Validates db schema against mapper.                                                    |
+| `make send-mail`        | Send all mails from queue. Needed for registration.                                    |
 
 ## Dev notes & todo:
 
-### Features:
+### Todo:
 
-* Register / Login recaptcha
-
-### Design
-
-* Api (tba - wip)
-  * GET/POST:/api/v1/session/new (sso/auth?)
-  * POST:/api/v1/session (Login)
-  * DELETE:/api/v1/session (Logout)
-  * GET:/api/v1/users (get user data)
-  * GET:/api/v1/posts (get post list)
-  * GET:/api/v1/posts/:postId (get post)
-* Backend
-  * Login page
-  * User edit/create/enable/disable (create surname + firstname abbreviation)
-  * Roles edit/create
-  * Posts edit/create
-
-### Permissions
-
-* ROLE_USER
-  * default
-* ROLE_MODERATOR
-* ROLE_ADMIN
-* ROLE_COMMENT_VIEW
-  * View admin comments section
-* ROLE_COMMENT_ADD
-* ROLE_COMMENT_REMOVE
-* ROLE_COMMENT_RESTORE
-* ROLE_POST_VIEW
-  * View admin posts section
-* ROLE_POST_ADD
-* ROLE_POST_EDIT
-* ROLE_POST_REMOVE
-* ROLE_POST_RESTORE
-* ROLE_POST_PUBLISH
-* ROLE_USER_VIEW
-  * View admin users section
-* ROLE_USER_ADD
-* ROLE_USER_EDIT
-* ROLE_USER_REMOVE
-* ROLE_USER_ENABLE
-* ROLE_USER_DISABLE
-* ROLE_ROLE_VIEW
-  * View admin roles section
-* ROLE_ROLE_ADD
-* ROLE_ROLE_REMOVE
-* ROLE_HIERARCHY_VIEW
-* ROLE_HIERARCHY_ADD
-* ROLE_HIERARCHY_REMOVE
+* login
+* logout
+* register api
+* add comment endpoint
+* edit comment endpoint
+* remove comment endpoint
 
 ### Tech-debt & notes
 
+* Service token to avoid exposing api
+* Refresh token
+* Don't send raw html in posts
 * Edit post html white text (only dark theme). Need to include css entrypoint in CRUD controllers.

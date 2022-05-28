@@ -56,7 +56,7 @@ final class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 64,
                     ]),
-                ]
+                ],
             ])->setRequired(true)
             ->add('lastname', TextType::class, [
                 'attr' => ['autocomplete' => 'family-name'],

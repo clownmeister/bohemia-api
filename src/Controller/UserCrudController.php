@@ -64,7 +64,7 @@ final class UserCrudController extends AbstractCrudController
         return $actions;
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $user = $entityInstance;
         if (!$user instanceof User) {
@@ -77,7 +77,8 @@ final class UserCrudController extends AbstractCrudController
                 $this->hasher->hashPassword(
                     $user,
                     $user->getPassword()
-                ));
+                )
+            );
         }
 
         parent::persistEntity($entityManager, $user);

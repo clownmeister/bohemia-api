@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Security;
 
 use ClownMeister\BohemiaApi\Entity\Role;
@@ -17,6 +16,9 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
         parent::__construct($this->buildRolesHierarchy());
     }
 
+    /**
+     * @return array<string, array<int, string>>
+     */
     private function buildRolesHierarchy(): array
     {
         $result = [];
@@ -30,8 +32,14 @@ final class RoleHierarchy extends SymfonyRoleHierarchy
 
         foreach ($rows as $roleHierarchy) {
             /** @var RoleHierarchyEntity $roleHierarchy */
+            if ($roleHierarchy->getParentRole() === null) {
+                continue;
+            }
+
             $result[$roleHierarchy->getParentRole()->getName()] = array_map(
-                fn(Role $role): string => $role->getName(),
+                function (Role $role): string {
+                    return $role->getName();
+                },
                 $roleHierarchy->getRoleCollection()->toArray()
             );
         }

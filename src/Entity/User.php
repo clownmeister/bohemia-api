@@ -82,7 +82,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
      */
     private DateTimeImmutable $createdAt;
-
     /**
      * @var Collection<int, Role>
      * @ORM\ManyToMany(targetEntity=Role::class)
@@ -95,9 +94,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roleCollection = new ArrayCollection();
     }
 
-    /**
-     * @return string|null
-     */
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
     public function getCountry(): ?string
     {
         return $this->country;
@@ -111,9 +112,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->country = $country;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
@@ -127,9 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstname(): string
     {
         return $this->firstname;
@@ -143,9 +138,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->firstname = $firstname;
     }
 
-    /**
-     * @return string
-     */
     public function getLastname(): string
     {
         return $this->lastname;
@@ -159,9 +151,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -175,9 +164,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->phone = $phone;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStreet(): ?string
     {
         return $this->street;
@@ -191,9 +177,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->street = $street;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCity(): ?string
     {
         return $this->city;
@@ -207,9 +190,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->city = $city;
     }
 
-    /**
-     * @return string|null
-     */
     public function getState(): ?string
     {
         return $this->state;
@@ -223,9 +203,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->state = $state;
     }
 
-    /**
-     * @return string|null
-     */
     public function getZip(): ?string
     {
         return $this->zip;
@@ -239,9 +216,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->zip = $zip;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
@@ -311,15 +285,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getIsVerified(): ?bool
     {
         return $this->isVerified;
@@ -331,14 +302,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(?bool $isVerified): void
     {
         $this->isVerified = $isVerified;
-    }
-
-    /**
-     * @param Collection<int, Role> $roleCollection
-     */
-    public function setRoleCollection(Collection $roleCollection): void
-    {
-        $this->roleCollection = $roleCollection;
     }
 
     /**
@@ -363,6 +326,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoleCollection(): Collection
     {
         return $this->roleCollection;
+    }
+
+    /**
+     * @param Collection<int, Role> $roleCollection
+     */
+    public function setRoleCollection(Collection $roleCollection): void
+    {
+        $this->roleCollection = $roleCollection;
     }
 
     public function addRole(Role $roleCollection): self

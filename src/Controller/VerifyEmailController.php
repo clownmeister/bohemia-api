@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
@@ -20,18 +21,21 @@ final class VerifyEmailController extends AbstractController
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository
+    public function verifyUserEmail(
+        Request $request,
+        TranslatorInterface $translator,
+        UserRepository $userRepository
     ): Response {
         //TODO: move to handler
         $id = $request->get('id');
 
-        if (null === $id) {
+        if ($id === null) {
             return $this->redirectToRoute('app_register');
         }
 
         $user = $userRepository->find($id);
 
-        if (null === $user) {
+        if ($user === null) {
             return $this->redirectToRoute('app_register');
         }
 

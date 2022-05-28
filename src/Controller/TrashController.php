@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
@@ -26,7 +27,7 @@ final class TrashController extends AbstractController
         $entities = $this->getTrashEntitiesHandler->handle();
 
         return $this->render('pages/trash_bin.html.twig', [
-            'entities' => $entities
+            'entities' => $entities,
         ]);
     }
 }

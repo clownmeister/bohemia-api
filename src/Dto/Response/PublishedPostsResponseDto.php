@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace ClownMeister\BohemiaApi\Dto\Response;
 
 use ClownMeister\BohemiaApi\Entity\Post;
@@ -12,16 +11,9 @@ final class PublishedPostsResponseDto
 {
     /**
      * @param Post[] $items
-     * @param int $page
-     * @param int $pageSize
-     * @param int $total
      */
-    public function __construct(
-        private array $items,
-        private int $page,
-        private int $pageSize,
-        private int $total,
-    ) {
+    public function __construct(private array $items, private int $page, private int $pageSize, private int $total)
+    {
     }
 
     /**
@@ -34,7 +26,6 @@ final class PublishedPostsResponseDto
     }
 
     /**
-     * @return int
      * @Groups("post")
      */
     public function getPage(): int
@@ -43,7 +34,6 @@ final class PublishedPostsResponseDto
     }
 
     /**
-     * @return int
      * @Groups("post")
      */
     public function getPageSize(): int
@@ -52,12 +42,10 @@ final class PublishedPostsResponseDto
     }
 
     /**
-     * @return int
      * @Groups("post")
      */
     public function getTotal(): int
     {
         return $this->total;
     }
-
 }

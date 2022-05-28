@@ -1,5 +1,7 @@
-PHP = docker exec -it -w /var/www bapi-php bash -c
-NPM = docker exec -it -w /var/www bapi-npm bash -c
+PHP = docker exec -it -w /var/www/html bapi-php bash -c
+NPM = docker exec -it -w /var/www/html bapi-npm bash -c
+
+.PHONY: test
 
 default:
 	@echo "\e[102;30m******************************         Izi Start          ******************************\e[0m\n"
@@ -24,15 +26,19 @@ up:
 
 php:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
-	docker exec -it -w /var/www bapi-php bash
+	docker exec -it -w /var/www/html bapi-php bash
 
 npm:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
-	docker exec -it -w /var/www bapi-npm bash
+	docker exec -it -w /var/www/html bapi-npm bash
 
 composer-install:
 	@echo "\e[103;30m******************************         Composer Install          ******************************\e[0m\n"
 	$(PHP) "composer install"
+
+composer-update:
+	@echo "\e[103;30m******************************         Composer Update          ******************************\e[0m\n"
+	$(PHP) "composer update"
 
 yarn-install:
 	@echo "\e[103;30m******************************         Yarn Install          ******************************\e[0m\n"
@@ -72,15 +78,15 @@ cache-clear:
 
 fix:
 	@echo "\e[103;30m******************************         PHPCBF          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpcbf --standard=./phpcs-ruleset.xml -p src/ tests/"
+	@$(PHP) "./vendor/bin/phpcbf --standard=./phpcs-ruleset.xml -p src test"
 
 phpcs:
 	@echo "\e[103;30m******************************         PHPCS          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpcs --standard=./phpcs-ruleset.xml -p src/ tests/"
+	@$(PHP) './vendor/bin/phpcs --standard=./phpcs-ruleset.xml --report=ClownMeister\\QualityAssurance\\PHPCodeSniffer\\Report\\FullReport src test'
 
 phpstan:
 	@echo "\e[103;30m******************************         PHPStan          ******************************\e[0m\n"
-	@$(PHP) "./vendor/bin/phpstan analyse -c phpstan.neon -l 8 src/ tests/"
+	@$(PHP) "./vendor/bin/phpstan analyse -c phpstan.neon -l 8 src/ test/"
 
 test:
 	@echo "\e[103;30m******************************         Test          ******************************\e[0m\n"

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ClownMeister\BohemiaApi\Controller;
@@ -19,7 +20,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Psr\Container\ContainerExceptionInterface;
@@ -30,16 +34,15 @@ final class PostCrudController extends AbstractCrudController
 {
     public function __construct(private SluggerInterface $slugger)
     {
-
     }
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
-            return $action->displayIf(function (?Post $post) {
-                return $this->isGranted('ROLE_POST_REMOVE');
-            });
-        });
+        $actions->update(
+            Crud::PAGE_INDEX,
+            Action::DELETE,
+            fn(Action $action) => $action->displayIf(fn(?Post $post) => $this->isGranted('ROLE_POST_REMOVE'))
+        );
 
         return $actions;
     }
@@ -48,7 +51,10 @@ final class PostCrudController extends AbstractCrudController
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields,
+    public function createIndexQueryBuilder(
+        SearchDto $searchDto,
+        EntityDto $entityDto,
+        FieldCollection $fields,
         FilterCollection $filters
     ): QueryBuilder {
         return $this->container->get(EntityRepository::class)
@@ -57,7 +63,7 @@ final class PostCrudController extends AbstractCrudController
             ->andWhere('entity.deleted = 0');
     }
 
-    public function deleteEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function deleteEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         if (!$this->isGranted('ROLE_POST_REMOVE')) {
             return;
@@ -65,9 +71,11 @@ final class PostCrudController extends AbstractCrudController
 
         $post = $entityInstance;
         $user = $this->getUser();
+
         if (!$post instanceof Post) {
             throw new InvalidEntityTypeException();
         }
+
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }
@@ -80,11 +88,6 @@ final class PostCrudController extends AbstractCrudController
         $entityManager->flush();
     }
 
-    public static function getEntityFqcn(): string
-    {
-        return Post::class;
-    }
-
     public function configureCrud(Crud $crud): Crud
     {
         $crud->setFormThemes(['@FOSCKEditor/Form/ckeditor_widget.html.twig', '@EasyAdmin/crud/form_theme.html.twig']);
@@ -95,18 +98,21 @@ final class PostCrudController extends AbstractCrudController
     public function createEntity(string $entityFqcn): Post
     {
         $user = $this->getUser();
+
         if (!$user instanceof User) {
             throw new InvalidUserTypeException();
         }
 
         $post = new Post();
         $post->setCreatedBy($user);
+
         return $post;
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function updateEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $post = $entityInstance;
+
         if (!$post instanceof Post) {
             throw new InvalidEntityTypeException();
         }
@@ -117,9 +123,10 @@ final class PostCrudController extends AbstractCrudController
         parent::updateEntity($entityManager, $post);
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
     {
         $post = $entityInstance;
+
         if (!$post instanceof Post) {
             throw new InvalidEntityTypeException();
         }
@@ -139,10 +146,30 @@ final class PostCrudController extends AbstractCrudController
                 ->hideWhenCreating()
                 ->hideOnIndex(),
             BooleanField::new('published'),
-            TextField::new('title'),
+            AssociationField::new('categoryCollection', 'Categories')
+                ->setFormTypeOption('choice_label', 'name')
+                ->setFormTypeOption('by_reference', false)
+                ->hideOnIndex(),
+            TextField::new('title')
+                ->setRequired(true),
             TextField::new('slug')
+                ->setRequired(true)
                 ->hideWhenCreating(),
-            CKEditorField::new('html')->setTemplatePath('components/easy_admin_text_editor.html.twig')
+            TextareaField::new('description')
+                ->setRequired(false),
+            ImageField::new('imageUrl', 'Cover image')
+                ->setBasePath('uploads/cover')
+                ->setUploadDir('public/uploads/cover')
+                ->setUploadedFileNamePattern('[uuid].[extension]')
+                ->setRequired(false),
+            CKEditorField::new('html')
+                ->setTemplatePath('components/easy_admin_text_editor.html.twig')
+                ->setRequired(false),
         ];
+    }
+
+    public static function getEntityFqcn(): string
+    {
+        return Post::class;
     }
 }
