@@ -20,7 +20,7 @@ final class GetPublishedPosts extends AbstractController
     ) {
     }
 
-    #[Route('/post', name: 'api_post_list', methods: ['GET'])]
+    #[Route('/posts', name: 'api_post_list', methods: ['GET'])]
     public function index(Request $request): Response
     {
         $data = $this->validateSchema($request->getContent(), __DIR__ . '/schema/post/get_posts.json');

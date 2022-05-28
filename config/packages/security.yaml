@@ -25,9 +25,13 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
-            pattern: ^/api
+            pattern: ^/api/v1/admin
             stateless: true
             jwt: ~
+        public_api:
+            pattern: ^/api
+            stateless: true
+            security: false
         admin:
             pattern: ^/
             form_login:
@@ -43,7 +47,7 @@ security:
         - { path: /register,       roles: PUBLIC_ACCESS }
         - { path: /registration-success,       roles: PUBLIC_ACCESS }
         - { path: /verify/email,       roles: PUBLIC_ACCESS }
-        - { path: ~/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/,       roles: [ ROLE_ADMIN, ROLE_MODERATOR ] }
 
 when@test:

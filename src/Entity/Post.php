@@ -76,6 +76,16 @@ class Post
      */
     private User $editedBy;
 
+    /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $imageUrl;
+
+    /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -189,5 +199,29 @@ class Post
     public function setEditedBy(User $editedBy): void
     {
         $this->editedBy = $editedBy;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

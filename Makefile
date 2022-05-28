@@ -1,5 +1,5 @@
-PHP = docker exec -it -w /var/www bapi-php bash -c
-NPM = docker exec -it -w /var/www bapi-npm bash -c
+PHP = docker exec -it -w /var/www/html bapi-php bash -c
+NPM = docker exec -it -w /var/www/html bapi-npm bash -c
 
 .PHONY: test
 
@@ -26,11 +26,11 @@ up:
 
 php:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
-	docker exec -it -w /var/www bapi-php bash
+	docker exec -it -w /var/www/html bapi-php bash
 
 npm:
 	@echo "\e[103;30m******************************         sdk-php bash          ******************************\e[0m\n"
-	docker exec -it -w /var/www bapi-npm bash
+	docker exec -it -w /var/www/html bapi-npm bash
 
 composer-install:
 	@echo "\e[103;30m******************************         Composer Install          ******************************\e[0m\n"

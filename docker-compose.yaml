@@ -42,13 +42,14 @@ services:
             PHP_IDE_CONFIG: "serverName={$APP_HOST}"
             MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN}
             DB_HOST: ${DB_HOST}
-            DB_PORT: ${DB_PORT}
+            DB_PORT_INTERNAL: ${DB_PORT_INTERNAL}
             DB_DATABASE: ${DB_DATABASE}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
             JWT_SECRET_KEY: ${JWT_SECRET_KEY}
             JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
             JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+            JWT_TTL: ${JWT_TTL}
             MAILER_DSN: ${MAILER_DSN}
         networks:
             internal:
@@ -56,7 +57,7 @@ services:
                     - php
         volumes:
             - ./docker/php/conf.d/php-${ENVIRONMENT}.ini:/usr/local/etc/php/conf.d/zz-php.ini
-            - ./:/var/www
+            - ./:/var/www/html
     mysql:
         <<: *defaults
         image: ${APP_MYSQL_IMAGE}
@@ -72,7 +73,7 @@ services:
             MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
             APP_HOST: ${APP_HOST}
         ports:
-            - ${DB_PORT}:3306
+            - ${DB_PORT}:${DB_PORT_INTERNAL}
     npm:
         <<: *defaults
         image: ${APP_NPM_IMAGE}
@@ -82,7 +83,7 @@ services:
                 aliases:
                     - npm
         volumes:
-            - ./:/var/www
+            - ./:/var/www/html
     php-my-admin:
         <<: *defaults
         image: phpmyadmin
