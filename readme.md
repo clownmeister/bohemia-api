@@ -14,11 +14,12 @@
 3) Type `make`.
 4) Done.
 
-* Access **Backoffice** at <http://api.bohemia.docker/admin/>
+* Access **Backoffice** at <http://api.bohemia.docker/>
 * Access **API** at <http://api.bohemia.docker/api/v1>
 * Access **PHPMyAdmin** at <http://api.bohemia.docker:81>
 * Access **Mailhog** at <http://api.bohemia.docker:82>
 * Access **Status** at <http://api.bohemia.docker/status>
+* Get **JWT Token** via POST (See openapi) at <http://api.bohemia.docker/api/auth>
 
 ## Login
 
