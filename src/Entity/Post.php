@@ -93,6 +93,7 @@ class Post
     /**
      * @var ArrayCollection<int, PostCategory>
      * @ORM\ManyToMany(targetEntity=PostCategory::class, mappedBy="postCollection")
+     * @Groups("post_category")
      */
     private Collection $categoryCollection;
 

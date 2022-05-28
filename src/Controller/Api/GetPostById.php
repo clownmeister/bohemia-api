@@ -37,7 +37,7 @@ final class GetPostById extends AbstractController
             $this->serializer->serialize(
                 $post[0],
                 self::ENCODE_TYPE_JSON,
-                ['groups' => ['post', 'user_short']]
+                ['groups' => ['post', 'user_short', 'post_category']]
             ),
             Response::HTTP_OK,
             [self::HEADER_CONTENT_TYPE => self::CONTENT_TYPE_APPLICATION_JSON]
