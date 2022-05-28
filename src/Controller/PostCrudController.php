@@ -21,6 +21,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Psr\Container\ContainerExceptionInterface;
@@ -143,10 +145,21 @@ final class PostCrudController extends AbstractCrudController
                 ->hideWhenCreating()
                 ->hideOnIndex(),
             BooleanField::new('published'),
-            TextField::new('title'),
+            TextField::new('title')
+                ->setRequired(true),
             TextField::new('slug')
+                ->setRequired(true)
                 ->hideWhenCreating(),
-            CKEditorField::new('html')->setTemplatePath('components/easy_admin_text_editor.html.twig'),
+            TextareaField::new('description')
+                ->setRequired(false),
+            ImageField::new('imageUrl', 'Cover image')
+                ->setBasePath('uploads/cover')
+                ->setUploadDir('public/uploads/cover')
+                ->setUploadedFileNamePattern('[uuid].[extension]')
+                ->setRequired(false),
+            CKEditorField::new('html')
+                ->setTemplatePath('components/easy_admin_text_editor.html.twig')
+                ->setRequired(false),
         ];
     }
 
