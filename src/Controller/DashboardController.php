@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\Post;
+use ClownMeister\BohemiaApi\Entity\PostCategory;
 use ClownMeister\BohemiaApi\Entity\Role;
 use ClownMeister\BohemiaApi\Entity\RoleHierarchy;
 use ClownMeister\BohemiaApi\Entity\User;
@@ -37,6 +38,9 @@ final class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Bohemia Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Posts', 'fas fa-file-lines', Post::class)
             ->setPermission('ROLE_POST_VIEW');
+
+        yield MenuItem::linkToCrud('Categories', 'fas fa-filter', PostCategory::class)
+            ->setPermission('ROLE_CATEGORY_VIEW');
 
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class)
             ->setPermission('ROLE_USER_VIEW');

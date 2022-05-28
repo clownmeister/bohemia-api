@@ -73,10 +73,6 @@ Execute only in root of the project
 
 ### Todo:
 
-* Public endpoints get post
-* get single post
-* post desc / post short text
-* post thumb / title pic
 * login
 * logout
 * register api
@@ -86,4 +82,7 @@ Execute only in root of the project
 
 ### Tech-debt & notes
 
+* Service token to avoid exposing api
+* Refresh token
+* Don't send raw html in posts
 * Edit post html white text (only dark theme). Need to include css entrypoint in CRUD controllers.

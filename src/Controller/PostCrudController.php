@@ -20,6 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -145,6 +146,10 @@ final class PostCrudController extends AbstractCrudController
                 ->hideWhenCreating()
                 ->hideOnIndex(),
             BooleanField::new('published'),
+            AssociationField::new('categoryCollection', 'Categories')
+                ->setFormTypeOption('choice_label', 'name')
+                ->setFormTypeOption('by_reference', false)
+                ->hideOnIndex(),
             TextField::new('title')
                 ->setRequired(true),
             TextField::new('slug')

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -78,17 +80,33 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=512, nullable=true)
+     * @Groups("post")
      */
-    private $imageUrl;
+    private ?string $imageUrl;
 
     /**
      * @ORM\Column(type="string", length=512, nullable=true)
+     * @Groups("post")
      */
-    private $description;
+    private ?string $description;
+
+    /**
+     * @var ArrayCollection<int, PostCategory>
+     * @ORM\ManyToMany(targetEntity=PostCategory::class, mappedBy="postCollection")
+     */
+    private Collection $categoryCollection;
+
+    /**
+     * @var ArrayCollection<int, Comment>
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="postId", orphanRemoval=true)
+     */
+    private Collection $commentCollection;
 
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->categoryCollection = new ArrayCollection();
+        $this->commentCollection = new ArrayCollection();
     }
 
     public function getSlug(): string
@@ -221,6 +239,63 @@ class Post
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostCategory>
+     */
+    public function getCategoryCollection(): Collection
+    {
+        return $this->categoryCollection;
+    }
+
+    public function addCategoryCollection(PostCategory $categoryCollection): self
+    {
+        if (!$this->categoryCollection->contains($categoryCollection)) {
+            $this->categoryCollection[] = $categoryCollection;
+            $categoryCollection->addPostCollection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryCollection(PostCategory $categoryCollection): self
+    {
+        if ($this->categoryCollection->removeElement($categoryCollection)) {
+            $categoryCollection->removePostCollection($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getCommentCollection(): Collection
+    {
+        return $this->commentCollection;
+    }
+
+    public function addCommentCollection(Comment $commentCollection): self
+    {
+        if (!$this->commentCollection->contains($commentCollection)) {
+            $this->commentCollection[] = $commentCollection;
+            $commentCollection->setPostId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentCollection(Comment $commentCollection): self
+    {
+        if ($this->commentCollection->removeElement($commentCollection)) {
+            // set the owning side to null (unless already changed)
+            if ($commentCollection->getPostId() === $this) {
+                $commentCollection->setPostId(null);
+            }
+        }
 
         return $this;
     }

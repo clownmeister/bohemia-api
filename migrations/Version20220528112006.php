@@ -14,7 +14,7 @@ final class Version20220528112006 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add image and description to posts';
     }
 
     public function up(Schema $schema): void

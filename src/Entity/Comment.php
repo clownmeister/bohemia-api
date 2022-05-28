@@ -61,6 +61,12 @@ class Comment
      */
     private User $editedBy;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="commentCollection")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $postId;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -149,5 +155,17 @@ class Comment
     public function setEditedBy(User $editedBy): void
     {
         $this->editedBy = $editedBy;
+    }
+
+    public function getPostId(): ?Post
+    {
+        return $this->postId;
+    }
+
+    public function setPostId(?Post $postId): self
+    {
+        $this->postId = $postId;
+
+        return $this;
     }
 }

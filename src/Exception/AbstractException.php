@@ -16,6 +16,7 @@ abstract class AbstractException extends Exception
     protected const HTTP_INTERNAL_SERVER_ERROR = 500;
 
     protected const BAD_REQUEST = 'BAD_REQUEST';
+    protected const NOT_FOUND = 'NOT_FOUND';
 
     protected const INVALID_USER_TYPE = 'INVALID_USER_TYPE';
     protected const INVALID_ENTITY_TYPE = 'INVALID_ENTITY_TYPE';

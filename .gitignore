@@ -4,6 +4,7 @@ var
 vendor
 public/build/*
 public/bundles/*
+public/uploads/*
 node_modules
 
 #Symfony
