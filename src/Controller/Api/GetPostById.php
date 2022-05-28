@@ -29,8 +29,11 @@ final class GetPostById extends AbstractController
 
         $post = $this->postRepository->findBy(['id' => $id], limit: 1);
 
-        if (is_bool($post) || count($post) === 0) {
-            return new JsonResponse(['status' => Response::$statusTexts[Response::HTTP_NOT_FOUND]], Response::HTTP_NOT_FOUND);
+        if (count($post) === 0) {
+            return new JsonResponse(
+                ['status' => Response::$statusTexts[Response::HTTP_NOT_FOUND]],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
         return new Response(

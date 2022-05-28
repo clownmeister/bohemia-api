@@ -65,7 +65,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="commentCollection")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $postId;
+    private ?Post $postId;
 
     public function __construct()
     {

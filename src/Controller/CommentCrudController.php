@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ClownMeister\BohemiaApi\Controller;
 
 use ClownMeister\BohemiaApi\Entity\Comment;
