@@ -17,6 +17,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[UniqueEntity(fields: ['slug'], message: 'Duplicate slug, please change title.')]
 class Post
 {
+    //TODO: autowire host
+    private const IMAGE_BASE_URL = 'http://api.bohemia.docker/uploads/cover/';
+
     /**
      * @ORM\Column(type="string", length=64)
      * @Groups("post")
@@ -80,7 +83,6 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=512, nullable=true)
-     * @Groups("post")
      */
     private ?string $imageUrl;
 
@@ -223,6 +225,15 @@ class Post
     public function getImageUrl(): ?string
     {
         return $this->imageUrl;
+    }
+
+    /**
+     * @Groups("post")
+     * @return string|null
+     */
+    public function getImageAbsoluteUrl(): ?string
+    {
+        return self::IMAGE_BASE_URL . $this->imageUrl;
     }
 
     public function setImageUrl(?string $imageUrl): self
