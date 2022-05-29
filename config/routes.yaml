@@ -3,4 +3,4 @@
 #    controller: ClownMeister\BohemiaApi\Controller\DefaultController::index
 
 api_login_check:
-  path: /api/auth
+  path: /api/v1/auth

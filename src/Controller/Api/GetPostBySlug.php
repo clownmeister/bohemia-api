@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace ClownMeister\BohemiaApi\Controller\Api;
 
 use ClownMeister\BohemiaApi\Controller\AbstractController;
-use ClownMeister\BohemiaApi\Exception\BadRequestException;
 use ClownMeister\BohemiaApi\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-final class GetPost extends AbstractController
+final class GetPostBySlug extends AbstractController
 {
     public function __construct(
         private PostRepository $postRepository,
@@ -21,17 +19,9 @@ final class GetPost extends AbstractController
     ) {
     }
 
-    #[Route('/post', name: 'api_post_get', methods: ['POST'])]
-    public function index(Request $request): Response
+    #[Route('/post/{slug}', name: 'api_post_get_by_slug', methods: ['GET'])]
+    public function index(string $slug): Response
     {
-        try {
-            $data = $this->validateSchema($request->getContent(), __DIR__ . '/schema/post/get_post.json');
-        } catch (BadRequestException $e) {
-            return new JsonResponse(['status' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
-        }
-
-        $slug = $data['slug'];
-
         $post = $this->postRepository->findBy(['slug' => $slug], limit: 1);
 
         if (count($post) === 0) {

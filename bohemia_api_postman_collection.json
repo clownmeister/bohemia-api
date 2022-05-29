@@ -11,15 +11,12 @@
       "item": [
         {
           "name": "GetPosts",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
-            "method": "GET",
+            "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"page\": 0,\r\n    \"pageSize\": 1\r\n}",
+              "raw": "{\r\n    \"page\": 0,\r\n    \"pageSize\": 10\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -27,14 +24,14 @@
               }
             },
             "url": {
-              "raw": "{{bohemiaApiHost}}/api/v1/post",
+              "raw": "{{bohemiaApiHost}}/api/v1/posts",
               "host": [
                 "{{bohemiaApiHost}}"
               ],
               "path": [
                 "api",
                 "v1",
-                "post"
+                "posts"
               ]
             }
           },
@@ -112,6 +109,209 @@
               ],
               "cookie": [],
               "body": "{\n    \"items\": [\n        {\n            \"slug\": \"Malebna-naplavka-ozije-Prazskymi-vinarskymi-a-rybimi-slavnostmi\",\n            \"id\": \"01G3AKF9WKRRTT8TVMM5M1DNVY\",\n            \"title\": \"Malebná náplavka ožije Pražskými vinařskými a rybími slavnostmi\",\n            \"html\": \"<p><strong>O v&iacute;kendu 10. a 11. června 2022 bude Hořej&scaron;&iacute; n&aacute;břež&iacute; pražsk&eacute; N&aacute;plavky patřit v&scaron;em milovn&iacute;kům skvěl&yacute;ch v&iacute;n a ryb&iacute;ch specialit, a to nejen na tal&iacute;ři. Atmosf&eacute;ra centra Prahy, nejkvalitněj&scaron;&iacute; v&iacute;na od vinařů z&nbsp;česk&eacute; a moravsk&eacute; produkce, gastronomick&eacute; z&aacute;žitky z&nbsp;tradičně i netradičně připraven&yacute;ch ryb a doprovodn&yacute; program pro celou rodinu v&nbsp;pod&aacute;n&iacute; těch nejlep&scaron;&iacute;ch buskers, na to v&scaron;e se mohou n&aacute;v&scaron;těvn&iacute;ci tě&scaron;it. V&scaron;em př&iacute;choz&iacute;m se otevře i řeka Vltava a z&nbsp;jedn&eacute; strany na druhou budou jezdit a přev&aacute;žet z&aacute;jemce lodě a př&iacute;vozy.</strong></p>\\n                <p><strong><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2022/05/Image_fotografie-300x200.jpg\\\" style=\\\"float:left; margin-right:15px\\\" /></strong></p>\\n                <p>Malebn&aacute; sm&iacute;chovsk&aacute; n&aacute;plavka bude v&nbsp;p&aacute;tek 10. června od 13 hodin a v&nbsp;sobotu 11. června od 11 hodin patřit v&scaron;em gurm&aacute;nům. Na sv&eacute; si přijdou v&scaron;ichni, kteř&iacute; si o v&iacute;kendu chtěj&iacute; už&iacute;t zaj&iacute;mav&yacute; program v&nbsp;centru Prahy. A nebude chybět hudba a dobr&eacute; j&iacute;dlo i pit&iacute;. Cel&yacute; program doprovod&iacute; př&iacute;jemn&aacute; a stylov&aacute; hudba v&nbsp;podobě pouličn&iacute;ho uměn&iacute;, tzv. busking. &bdquo;<em>Pracujeme s tradic&iacute; a na&scaron;e slavnosti navazuj&iacute; na Pražsk&eacute; ryb&aacute;řsk&eacute; slavnosti. Kulin&aacute;řům a milovn&iacute;kům gastronomie nemus&iacute;m připom&iacute;nat, že k dobr&eacute; rybě patř&iacute; dobr&eacute; v&iacute;no. Na n&aacute;plavk&aacute;ch se tyto věci snoub&iacute; v jedinečnou harmonii chuťov&yacute;ch prožitků,&ldquo;</em>&nbsp;ř&iacute;k&aacute; dramaturg Pražsk&yacute;ch vinařsk&yacute;ch slavnost&iacute; Jiř&iacute; Vrti&scaron;.</p>\\n                <p><strong>V&nbsp;př&iacute;jemn&eacute;m prostřed&iacute; ochutn&aacute;te kulin&aacute;řsk&eacute; speciality či netradičně připraven&eacute; ryb&iacute; pochutiny. N&aacute;v&scaron;těvn&iacute;kům se otevře i řeka Vltava, po kter&eacute; je budou přepravovat lodě a př&iacute;voz.</strong></p>\\n                <p>Vstup na akci je zdarma.</p>\\n                <p>Partnery akce jsou Hudba na vinic&iacute;ch, Vinn&yacute; ko&scaron;t, Uměn&iacute; v&iacute;na a RedHead music.</p>\\n                <p>&nbsp;<u><a href=\\\"https://vinananaplavce.cz/\\\">https://vinananaplavce.cz/</a></u></p>\\n                <p>Hana Doležalov&aacute;</p>\",\n            \"createdAt\": \"2022-05-18T05:30:35+02:00\",\n            \"editedAt\": null,\n            \"createdBy\": {\n                \"id\": \"7FQEZQAXB9CGM2J00000000000\",\n                \"username\": \"admin\"\n            }\n        }\n    ],\n    \"page\": 0,\n    \"pageSize\": 1,\n    \"total\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "GetPost",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{bohemiaApiHost}}/api/v1/post",
+              "host": [
+                "{{bohemiaApiHost}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "post"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GetPost",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bohemiaApiHost}}/api/v1/post",
+                  "host": [
+                    "{{bohemiaApiHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "post"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.19.8"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 29 May 2022 21:41:02 GMT"
+                },
+                {
+                  "key": "X-Debug-Token",
+                  "value": "1cc8a6"
+                },
+                {
+                  "key": "X-Debug-Token-Link",
+                  "value": "http://api.bohemia.docker/_profiler/1cc8a6"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\",\n    \"id\": \"01G3AK3NZZSAVWSKBG255YM62P\",\n    \"title\": \"Evropa míří k nezávislosti na ruském plynu\",\n    \"html\": \"<div class=\\\"align-items-center d-flex justify-content-center w-100\\\"><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2020/09/20200911_123708-e1630392383654.jpg\\\" style=\\\"height:275px; width:367px\\\" /></div>\\n<p><strong>Evropsk&aacute; komise dnes představila n&aacute;vrhy na pos&iacute;len&iacute; energetick&eacute; nez&aacute;vislosti Evropy pomoc&iacute; rozvoje obnoviteln&yacute;ch zdrojů a renovace budov. Marian Jurečka (KDU-ČSL), m&iacute;stopředseda vl&aacute;dy a ministr pr&aacute;ce a soci&aacute;ln&iacute;ch věc&iacute; upozorňuje, že naplněn&iacute; strategie bude m&iacute;t pozitivn&iacute; dopady na Česko v podobě dostupn&yacute;ch cen energie a př&iacute;ležitosti pro nov&aacute; pracovn&iacute; m&iacute;sta.</strong></p>\\n<p>Ministerstvo pr&aacute;ce a soci&aacute;ln&iacute;ch věc&iacute; (MPSV) ře&scaron;&iacute; v posledn&iacute;ch měs&iacute;c&iacute;ch ochranu dom&aacute;cnost&iacute; před raketově rostouc&iacute;mi cenami energie. Ty tlač&iacute; v Česku i cel&eacute; Evropě zejm&eacute;na rusk&aacute; v&aacute;lka proti Ukrajině a omezen&iacute; dod&aacute;vek zemn&iacute;ho plynu pr&aacute;vě z Ruska.<br />\\n<strong>Evropsk&aacute; komise dnes představila strategii postavenou na rozvoji obnoviteln&yacute;ch zdrojů a renovaci budov. To je př&iacute;ležitost i pro Českou republiku. Potřebujeme d&aacute;t sol&aacute;rn&iacute; panely na střechy budov a zjednodu&scaron;it proces schvalov&aacute;n&iacute; nov&yacute;ch projektů. Na MPSV určitě prověř&iacute;me možnosti instalace fotovoltaiky na v&scaron;echny vhodn&eacute; střechy na&scaron;ich &uacute;řadů. Chceme j&iacute;t př&iacute;kladem a uk&aacute;zat, jak&eacute; jsou v&yacute;hody využit&iacute; slunečn&iacute; energie. Pod&iacute;v&aacute;me se i na možnosti využit&iacute; tepeln&yacute;ch čerpadel a &uacute;spor energie v budov&aacute;ch. I st&aacute;t může uk&aacute;zat, jak lze &scaron;etřit na v&yacute;daj&iacute;ch za energie pomoc&iacute; zateplen&iacute; nebo v&yacute;měny oken.</strong></p>\\n<p><strong><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2022/03/plyn-horak-300x200.jpg\\\" style=\\\"float:left; margin-right:15px\\\" /></strong>Je dobr&eacute; si připomenout, že nejlevněj&scaron;&iacute; energie je ta, kterou vůbec nespotřebujeme. To plat&iacute; pro &uacute;ředn&iacute; budovy i ty obytn&eacute;. Dom&aacute;cnost v kvalitně zateplen&eacute;m domě u&scaron;etř&iacute; ročně des&iacute;tky tis&iacute;c korun za energie, kter&eacute; nebude muset nakoupit. Zv&yacute;&scaron;&iacute; se tak&eacute; komfort bydlen&iacute;. Rodin&aacute;m může se zateplen&iacute;m pomoci program, kter&yacute; připravila kolegyně z vl&aacute;dy, ministryně životn&iacute;ho prostřed&iacute; Anna Hub&aacute;čkov&aacute; (za KDU-ČSL): NZ&Uacute; Light nab&iacute;dne finance alespoň pro d&iacute;lč&iacute; stavebn&iacute; &uacute;spory, kter&eacute; lze zvl&aacute;dnout před leto&scaron;n&iacute; zimou. Jen zateplen&iacute; střechy sn&iacute;ž&iacute; spotřebu energie v domě o pětinu.</p>\\n<p><strong>Evropsk&aacute; komise podporuje tak&eacute; ře&scaron;en&iacute;, kter&aacute; nahrad&iacute; zemn&iacute; plyn pro vyt&aacute;pěn&iacute; budov. V Česku jsme na tom již začali pracovat: z Kotl&iacute;kov&yacute;ch dotac&iacute;, kter&eacute; podpoř&iacute; v&yacute;měnu star&yacute;ch kotlů, jsme vyřadili podporu kotlů na zemn&iacute; plyn a zv&yacute;&scaron;ili podporu pro tepeln&aacute; čerpadla. D&aacute;le se budeme ve spolupr&aacute;ci s ministerstvem životn&iacute;ho prostřed&iacute; zab&yacute;vat t&iacute;m, jak upravit programy podpory, aby na ni dos&aacute;hlo v&iacute;ce česk&yacute;ch dom&aacute;cnost&iacute;. Rusk&aacute; agrese vedla ke skokov&eacute;mu růstu z&aacute;jmu o program Nov&aacute; zelen&aacute; &uacute;spor&aacute;m. Počet ž&aacute;dost&iacute; na fotovoltaiku jen za prvn&iacute; měs&iacute;ce leto&scaron;n&iacute;ho roku přes&aacute;hl 10 tis&iacute;c, což se už rovn&aacute; počtu žadatelů za cel&yacute; loňsk&yacute; rok.</strong></p>\\n<p>&nbsp;</p>\\n<p>V&yacute;roba a instalace tepeln&yacute;ch čerpadel, kotlů na biomasu, sol&aacute;rn&iacute;ch kolektorů nebo fotovoltaick&yacute;ch modulů je &scaron;ance i pro česk&yacute; trh pr&aacute;ce. Budeme se rozhodně zab&yacute;vat možnostmi podpory rekvalifikace a vzděl&aacute;v&aacute;n&iacute; tak, aby pracovn&iacute; trh dok&aacute;zal uspokojit hlad po rostouc&iacute; popt&aacute;vce mont&eacute;rů.</p>\\n<p>Př&iacute;ležitost vid&iacute;m tak&eacute; v produkci dom&aacute;c&iacute;ho zelen&eacute;ho plynu. Strategie energetick&eacute; bezpečnosti Evropy REPowerEU navrhuje celoevropsk&yacute; c&iacute;l 35 miliard kub&iacute;ků biometanu. Česk&eacute; zemědělstv&iacute; se zde potk&aacute;v&aacute; s energetikou: dom&aacute;c&iacute; bioplynov&eacute; stanice mohou nahradit až 10 % dod&aacute;vek rusk&eacute;ho plynu. Dom&aacute;c&iacute; biometan je dnes levněj&scaron;&iacute; než plyn z Ruska, takže jde opět o v&iacute;tan&yacute; krok, kter&yacute; ve v&yacute;sledku pomůže k dostupn&yacute;m cen&aacute;m energie pro česk&eacute; dom&aacute;cnosti.</p>\\n<p>Mgr. Lucie Je&scaron;&aacute;tkov&aacute;</p>\",\n    \"createdAt\": \"2022-05-18T05:24:14+02:00\",\n    \"editedAt\": \"2022-05-29T01:05:49+02:00\",\n    \"createdBy\": {\n        \"id\": \"7FQEZQAXB9CGM2J00000000000\",\n        \"username\": \"admin\"\n    },\n    \"description\": \"Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla non arcu lacinia neque faucibus fringilla. Nullam faucibus mi quis velit. Pellentesque sapien.\",\n    \"categoryCollection\": [\n        {\n            \"name\": \"General\"\n        },\n        {\n            \"name\": \"Promo\"\n        }\n    ],\n    \"imageAbsoluteUrl\": \"http://api.bohemia.docker/uploads/cover/5b39edcb-ad5b-43c4-a456-622290e63020.jpg\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GetPostById",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{bohemiaApiHost}}/api/v1/post/01G3AK3NZZSAVWSKBG255YM62P",
+              "host": [
+                "{{bohemiaApiHost}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "post",
+                "01G3AK3NZZSAVWSKBG255YM62P"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GetPostById",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bohemiaApiHost}}/api/v1/post/01G3AK3NZZSAVWSKBG255YM62P",
+                  "host": [
+                    "{{bohemiaApiHost}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "post",
+                    "01G3AK3NZZSAVWSKBG255YM62P"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Server",
+                  "value": "nginx/1.19.8"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 29 May 2022 21:41:08 GMT"
+                },
+                {
+                  "key": "X-Debug-Token",
+                  "value": "a8bbd5"
+                },
+                {
+                  "key": "X-Debug-Token-Link",
+                  "value": "http://api.bohemia.docker/_profiler/a8bbd5"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"slug\": \"Evropa-miri-k-nezavislosti-na-ruskem-plynu\",\n    \"id\": \"01G3AK3NZZSAVWSKBG255YM62P\",\n    \"title\": \"Evropa míří k nezávislosti na ruském plynu\",\n    \"html\": \"<div class=\\\"align-items-center d-flex justify-content-center w-100\\\"><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2020/09/20200911_123708-e1630392383654.jpg\\\" style=\\\"height:275px; width:367px\\\" /></div>\\n<p><strong>Evropsk&aacute; komise dnes představila n&aacute;vrhy na pos&iacute;len&iacute; energetick&eacute; nez&aacute;vislosti Evropy pomoc&iacute; rozvoje obnoviteln&yacute;ch zdrojů a renovace budov. Marian Jurečka (KDU-ČSL), m&iacute;stopředseda vl&aacute;dy a ministr pr&aacute;ce a soci&aacute;ln&iacute;ch věc&iacute; upozorňuje, že naplněn&iacute; strategie bude m&iacute;t pozitivn&iacute; dopady na Česko v podobě dostupn&yacute;ch cen energie a př&iacute;ležitosti pro nov&aacute; pracovn&iacute; m&iacute;sta.</strong></p>\\n<p>Ministerstvo pr&aacute;ce a soci&aacute;ln&iacute;ch věc&iacute; (MPSV) ře&scaron;&iacute; v posledn&iacute;ch měs&iacute;c&iacute;ch ochranu dom&aacute;cnost&iacute; před raketově rostouc&iacute;mi cenami energie. Ty tlač&iacute; v Česku i cel&eacute; Evropě zejm&eacute;na rusk&aacute; v&aacute;lka proti Ukrajině a omezen&iacute; dod&aacute;vek zemn&iacute;ho plynu pr&aacute;vě z Ruska.<br />\\n<strong>Evropsk&aacute; komise dnes představila strategii postavenou na rozvoji obnoviteln&yacute;ch zdrojů a renovaci budov. To je př&iacute;ležitost i pro Českou republiku. Potřebujeme d&aacute;t sol&aacute;rn&iacute; panely na střechy budov a zjednodu&scaron;it proces schvalov&aacute;n&iacute; nov&yacute;ch projektů. Na MPSV určitě prověř&iacute;me možnosti instalace fotovoltaiky na v&scaron;echny vhodn&eacute; střechy na&scaron;ich &uacute;řadů. Chceme j&iacute;t př&iacute;kladem a uk&aacute;zat, jak&eacute; jsou v&yacute;hody využit&iacute; slunečn&iacute; energie. Pod&iacute;v&aacute;me se i na možnosti využit&iacute; tepeln&yacute;ch čerpadel a &uacute;spor energie v budov&aacute;ch. I st&aacute;t může uk&aacute;zat, jak lze &scaron;etřit na v&yacute;daj&iacute;ch za energie pomoc&iacute; zateplen&iacute; nebo v&yacute;měny oken.</strong></p>\\n<p><strong><img alt=\\\"\\\" src=\\\"https://prazsky-magazin.cz/wp-content/uploads/2022/03/plyn-horak-300x200.jpg\\\" style=\\\"float:left; margin-right:15px\\\" /></strong>Je dobr&eacute; si připomenout, že nejlevněj&scaron;&iacute; energie je ta, kterou vůbec nespotřebujeme. To plat&iacute; pro &uacute;ředn&iacute; budovy i ty obytn&eacute;. Dom&aacute;cnost v kvalitně zateplen&eacute;m domě u&scaron;etř&iacute; ročně des&iacute;tky tis&iacute;c korun za energie, kter&eacute; nebude muset nakoupit. Zv&yacute;&scaron;&iacute; se tak&eacute; komfort bydlen&iacute;. Rodin&aacute;m může se zateplen&iacute;m pomoci program, kter&yacute; připravila kolegyně z vl&aacute;dy, ministryně životn&iacute;ho prostřed&iacute; Anna Hub&aacute;čkov&aacute; (za KDU-ČSL): NZ&Uacute; Light nab&iacute;dne finance alespoň pro d&iacute;lč&iacute; stavebn&iacute; &uacute;spory, kter&eacute; lze zvl&aacute;dnout před leto&scaron;n&iacute; zimou. Jen zateplen&iacute; střechy sn&iacute;ž&iacute; spotřebu energie v domě o pětinu.</p>\\n<p><strong>Evropsk&aacute; komise podporuje tak&eacute; ře&scaron;en&iacute;, kter&aacute; nahrad&iacute; zemn&iacute; plyn pro vyt&aacute;pěn&iacute; budov. V Česku jsme na tom již začali pracovat: z Kotl&iacute;kov&yacute;ch dotac&iacute;, kter&eacute; podpoř&iacute; v&yacute;měnu star&yacute;ch kotlů, jsme vyřadili podporu kotlů na zemn&iacute; plyn a zv&yacute;&scaron;ili podporu pro tepeln&aacute; čerpadla. D&aacute;le se budeme ve spolupr&aacute;ci s ministerstvem životn&iacute;ho prostřed&iacute; zab&yacute;vat t&iacute;m, jak upravit programy podpory, aby na ni dos&aacute;hlo v&iacute;ce česk&yacute;ch dom&aacute;cnost&iacute;. Rusk&aacute; agrese vedla ke skokov&eacute;mu růstu z&aacute;jmu o program Nov&aacute; zelen&aacute; &uacute;spor&aacute;m. Počet ž&aacute;dost&iacute; na fotovoltaiku jen za prvn&iacute; měs&iacute;ce leto&scaron;n&iacute;ho roku přes&aacute;hl 10 tis&iacute;c, což se už rovn&aacute; počtu žadatelů za cel&yacute; loňsk&yacute; rok.</strong></p>\\n<p>&nbsp;</p>\\n<p>V&yacute;roba a instalace tepeln&yacute;ch čerpadel, kotlů na biomasu, sol&aacute;rn&iacute;ch kolektorů nebo fotovoltaick&yacute;ch modulů je &scaron;ance i pro česk&yacute; trh pr&aacute;ce. Budeme se rozhodně zab&yacute;vat možnostmi podpory rekvalifikace a vzděl&aacute;v&aacute;n&iacute; tak, aby pracovn&iacute; trh dok&aacute;zal uspokojit hlad po rostouc&iacute; popt&aacute;vce mont&eacute;rů.</p>\\n<p>Př&iacute;ležitost vid&iacute;m tak&eacute; v produkci dom&aacute;c&iacute;ho zelen&eacute;ho plynu. Strategie energetick&eacute; bezpečnosti Evropy REPowerEU navrhuje celoevropsk&yacute; c&iacute;l 35 miliard kub&iacute;ků biometanu. Česk&eacute; zemědělstv&iacute; se zde potk&aacute;v&aacute; s energetikou: dom&aacute;c&iacute; bioplynov&eacute; stanice mohou nahradit až 10 % dod&aacute;vek rusk&eacute;ho plynu. Dom&aacute;c&iacute; biometan je dnes levněj&scaron;&iacute; než plyn z Ruska, takže jde opět o v&iacute;tan&yacute; krok, kter&yacute; ve v&yacute;sledku pomůže k dostupn&yacute;m cen&aacute;m energie pro česk&eacute; dom&aacute;cnosti.</p>\\n<p>Mgr. Lucie Je&scaron;&aacute;tkov&aacute;</p>\",\n    \"createdAt\": \"2022-05-18T05:24:14+02:00\",\n    \"editedAt\": \"2022-05-29T01:05:49+02:00\",\n    \"createdBy\": {\n        \"id\": \"7FQEZQAXB9CGM2J00000000000\",\n        \"username\": \"admin\"\n    },\n    \"description\": \"Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla non arcu lacinia neque faucibus fringilla. Nullam faucibus mi quis velit. Pellentesque sapien.\",\n    \"categoryCollection\": [\n        {\n            \"name\": \"General\"\n        },\n        {\n            \"name\": \"Promo\"\n        }\n    ],\n    \"imageAbsoluteUrl\": \"http://api.bohemia.docker/uploads/cover/5b39edcb-ad5b-43c4-a456-622290e63020.jpg\"\n}"
             }
           ]
         }
@@ -220,15 +420,18 @@
     },
     {
       "name": "Status",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
-        "method": "POST",
+        "method": "GET",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"username\":\"johndoe\",\r\n    \"password\":\"test\"\r\n}",
+          "raw": "",
           "options": {
             "raw": {
-              "language": "json"
+              "language": "text"
             }
           }
         },

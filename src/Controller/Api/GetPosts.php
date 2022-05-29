@@ -22,7 +22,7 @@ final class GetPosts extends AbstractController
     ) {
     }
 
-    #[Route('/posts', name: 'api_post_list', methods: ['GET'])]
+    #[Route('/posts', name: 'api_post_list', methods: ['POST'])]
     public function index(Request $request): Response
     {
         try {
